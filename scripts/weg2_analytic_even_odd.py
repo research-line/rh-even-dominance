@@ -4,20 +4,15 @@ weg2_analytic_even_odd.py
 =========================
 Analytische Berechnung der Shift-Matrixelemente fuer cos vs sin.
 
-Fuer die cos-Basis phi_n(t) = cos(n*pi*t/(2L))/sqrt(L) auf [-L,L]:
-  <phi_n, S_s phi_m> = (1/L) int_{max(-L,-L+s)}^{min(L,L+s)} cos(n*pi*t/(2L)) cos(m*pi*(t-s)/(2L)) dt
+KORRIGIERT (2026-03-13): Orthogonale Basis cos(n*pi*t/L) statt cos(n*pi*t/(2L)).
+Die alte Basis war NICHT orthogonal auf [-L,L] (||M-I||=2.28, cond=10^7).
 
-Nutze Produktformel: cos(a)*cos(b) = [cos(a-b)+cos(a+b)]/2
-  cos(n*pi*t/(2L)) * cos(m*pi*(t-s)/(2L))
-  = (1/2)[cos((n-m)*pi*t/(2L) + m*pi*s/(2L)) + cos((n+m)*pi*t/(2L) - m*pi*s/(2L))]
+Korrekte orthonormale Basis auf [-L, L]:
+  Even: psi_0(t) = 1/sqrt(2L), psi_n(t) = cos(n*pi*t/L)/sqrt(L) for n >= 1
+  Odd:  psi_n(t) = sin((n+1)*pi*t/L)/sqrt(L) for n >= 0
 
-Fuer sin-Basis phi_n(t) = sin((n+1)*pi*t/(2L))/sqrt(L):
-  sin(a)*sin(b) = [cos(a-b)-cos(a+b)]/2
-
-Der UNTERSCHIED cos vs sin ist: +cos(a+b) vs -cos(a+b).
-Das heisst: Die Differenz Matrix(cos) - Matrix(sin) = cos(a+b)-Integral-Beitrag.
-
-FRAGE: Kann man zeigen, dass dieser Unterschied den Even-Sektor bevorzugt?
+Produktformel: cos(a)*cos(b) = [cos(a-b)+cos(a+b)]/2
+               sin(a)*sin(b) = [cos(a-b)-cos(a+b)]/2
 """
 
 import numpy as np
@@ -29,18 +24,12 @@ LOG4PI_GAMMA = float(mplog(4 * mppi)) + float(mp_euler)
 
 def shift_element_cos(n, m, s, L):
     """
-    Berechne <cos_n, S_s cos_m> analytisch.
+    Berechne <psi_n, S_s psi_m> analytisch (KORRIGIERTE orthogonale Basis).
 
-    <phi_n, S_s phi_m> = (1/L) int_{a}^{b} cos(n*pi*t/(2L)) * cos(m*pi*(t-s)/(2L)) dt
+    Basis: psi_0 = 1/sqrt(2L), psi_n = cos(n*pi*t/L)/sqrt(L) for n >= 1
+    Frequenzen: kn = n*pi/L (NICHT n*pi/(2L)!)
 
-    Integrationsgrenzen: t in [-L, L] UND t-s in [-L, L]
-    => t in [max(-L, s-L), min(L, s+L)]
-
-    Fuer 0 <= s <= 2L: a = max(-L, s-L), b = min(L, s+L) = L (falls s <= 2L)
-    Fuer s >= 0: a = s-L (falls s >= 0), b = L
-    Also: a = max(-L, s-L), b = L
-
-    Normierung: (1/L) fuer n,m >= 1; spezielle Normierung fuer n=0 oder m=0
+    Integrationsgrenzen: t in [max(-L, s-L), min(L, s+L)]
     """
     if abs(s) > 2 * L:
         return 0.0
@@ -58,18 +47,16 @@ def shift_element_cos(n, m, s, L):
     else:
         norm = 1.0 / L
 
-    # Frequenzen
-    kn = n * np.pi / (2 * L)
-    km = m * np.pi / (2 * L)
+    # KORRIGIERTE Frequenzen: n*pi/L
+    kn = n * np.pi / L
+    km = m * np.pi / L
 
     # cos(kn*t) * cos(km*(t-s)) = (1/2)[cos((kn-km)*t + km*s) + cos((kn+km)*t - km*s)]
     result = 0.0
     for freq, phase in [(kn - km, km * s), (kn + km, -km * s)]:
         if abs(freq) < 1e-12:
-            # cos(phase) * (b - a)
             result += np.cos(phase) * (b - a) / 2
         else:
-            # int_a^b cos(freq*t + phase) dt = [sin(freq*t + phase)/freq]_a^b
             result += (np.sin(freq * b + phase) - np.sin(freq * a + phase)) / (2 * freq)
 
     return norm * result
@@ -77,8 +64,10 @@ def shift_element_cos(n, m, s, L):
 
 def shift_element_sin(n, m, s, L):
     """
-    Berechne <sin_{n+1}, S_s sin_{m+1}> analytisch.
-    sin(kn*t) * sin(km*(t-s)) = (1/2)[cos((kn-km)*t + km*s) - cos((kn+km)*t - km*s)]
+    Berechne <psi_n, S_s psi_m> fuer sin-Basis (KORRIGIERT).
+
+    Basis: psi_n = sin((n+1)*pi*t/L)/sqrt(L) for n >= 0
+    Frequenzen: (n+1)*pi/L (NICHT (n+1)*pi/(2L)!)
     """
     if abs(s) > 2 * L:
         return 0.0
@@ -90,8 +79,9 @@ def shift_element_sin(n, m, s, L):
 
     norm = 1.0 / L
 
-    kn = (n + 1) * np.pi / (2 * L)
-    km = (m + 1) * np.pi / (2 * L)
+    # KORRIGIERTE Frequenzen: (n+1)*pi/L
+    kn = (n + 1) * np.pi / L
+    km = (m + 1) * np.pi / L
 
     result = 0.0
     # MINUS-Zeichen beim zweiten Term ist der Unterschied zu cos!
@@ -111,8 +101,8 @@ def build_QW_analytic(lam, N, primes, basis='cos'):
     W = LOG4PI_GAMMA * np.eye(N)
 
     # Archimedischer Kernel (numerisch, da K(s) keine geschlossene Form hat)
-    n_int = max(800, 15 * N)
-    s_max = min(2 * L, 10.0)
+    n_int = max(2000, 30 * N)
+    s_max = min(2 * L, 12.0)
     s_grid = np.linspace(0.005, s_max, n_int)
     ds = s_grid[1] - s_grid[0]
 
@@ -137,7 +127,7 @@ def build_QW_analytic(lam, N, primes, basis='cos'):
     # Primzahl-Beitraege (analytisch!)
     for p in primes:
         logp = np.log(p)
-        for m in range(1, 13):
+        for m in range(1, 20):
             coeff = logp * p**(-m / 2.0)
             shift = m * logp
             if shift >= 2 * L:
