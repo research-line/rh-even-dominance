@@ -1,0 +1,356 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}[theorem]{Axiom}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{heuristic}[theorem]{Heuristic Principle}
+
+\newcommand{\Ksym}{K_\sigma^{\mathrm{sym}}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\muG}{\mu_\sigma}
+\newcommand{\PP}{\mathcal{P}}
+
+\title{A Gauge-theoretic Reformulation of the Riemann Hypothesis:\\
+Part~I: The Landscape}
+\author{Lukas Geiger\\
+\small Bernau, Germany\\
+\small ORCID: \href{https://orcid.org/0009-0005-7296-1534}{0009-0005-7296-1534}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This is the first paper in a four-part series investigating the Riemann Hypothesis through the lens of gauge theory, spectral analysis, and arithmetic thermodynamics. We establish the mathematical landscape: the Riemann Hypothesis as a stability problem, the Li criterion as the central tool, and the Bombieri--Lagarias decomposition of the Li coefficients into archimedean and finite-part contributions. Starting from a thermodynamic formalism (Prime Hub Graphs and Ruelle transfer operators), we develop the analytical framework that the subsequent papers will both exploit and push to its limits. We prove several unconditional structural results: the archimedean--finite decomposition, the archimedean dominance paradox, the OS reflection positivity, the arithmetic uncertainty relation, and the spectral census of the arithmetic kernel. These establish the toolkit for the journey ahead.
+\end{abstract}
+
+\noindent\textbf{MSC 2020:} 11M26, 11M36, 37C30, 82B05\\
+\textbf{Keywords:} Riemann Hypothesis, Li coefficients, Ruelle transfer operator, archimedean dominance, spectral analysis
+
+\tableofcontents
+
+
+% =============================================================================
+\section{Introduction}
+\label{sec:intro}
+% =============================================================================
+
+The Riemann Hypothesis (RH) asserts that all non-trivial zeros of the Riemann zeta function $\zeta(s)$ lie on the critical line $\Re(s) = 1/2$. Reformulated via Li's criterion \cite{Li1997}, RH is equivalent to the positivity of an infinite sequence of real numbers:
+\begin{equation}
+\label{eq:li-criterion}
+\text{RH} \quad \Longleftrightarrow \quad \lambda_n \geq 0 \text{ for all } n \geq 1,
+\end{equation}
+where $\lambda_n = \sum_\rho [1 - (1-1/\rho)^n]$ and the sum runs over the non-trivial zeros of $\zeta$.
+
+This paper is the first in a four-part series:
+\begin{itemize}
+  \item \textbf{Part~I} (this paper): The landscape --- mathematical foundations, analytical tools, and structural results.
+  \item \textbf{Part~II} \cite{Geiger2026partII}: The path --- four dead ends, the localization of difficulty, and the reorientation toward Connes' spectral program.
+  \item \textbf{Part~III} \cite{Geiger2026partIII}: Even dominance --- the Shift Parity Lemma, computer-assisted proofs, and the new proof architecture.
+  \item \textbf{Part~IV} \cite{Geiger2026partIV}: Conclusio --- what is proven, what is excluded, and what remains.
+\end{itemize}
+
+The series documents an honest research journey: from a promising gauge-theoretic approach (this paper), through its failure at multiple points (Part~II), to a new structural understanding of the problem via the Weil quadratic form (Part~III), and a final accounting of what has been achieved (Part~IV).
+
+\subsection{The Hope}
+
+The Hilbert--P\'olya conjecture proposes that the non-trivial zeros correspond to eigenvalues of a self-adjoint operator. The Berry--Keating semiclassical approach ($\hat{H} = xp$) fails due to the Weyl law obstruction. This paper shifts the paradigm from quantum mechanics to statistical mechanics: the zeros are generated not as eigenvalues of a Hamiltonian, but as resonances of a Ruelle-type transfer operator.
+
+The guiding idea is that the Riemann Hypothesis is a \emph{stability condition}: the arithmetic structure of the primes, encoded in the Li coefficients $\lambda_n$, is stabilized by a competition between arithmetic instability (from the primes) and archimedean convexity (from the Gamma function). Understanding this competition is the central theme of the series.
+
+
+% =============================================================================
+\section{The Thermodynamic Formalism}
+\label{sec:thermodynamic}
+% =============================================================================
+
+\subsection{Prime Hub Graph and the Vacuum Trace}
+
+To reproduce the Euler product $\zeta(s) = \prod_p (1-p^{-s})^{-1}$, we construct a dynamical system whose primitive periodic orbits correspond to primes.
+
+\begin{definition}[Prime Orbit Axiom]
+We postulate a topologically mixing directed graph $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ whose primitive cycles $\gamma_p$ are in bijection with the primes $p \in \PP$, with geometric length $\ell(\gamma_p) = \log p$.
+\end{definition}
+
+\begin{remark}[Motivation vs.\ logical dependency]
+The Prime Orbit Axiom is a constructive motivation. The analytical results in subsequent sections depend solely on properties of $\zeta(s)$ and the arithmetic Euler product, and are logically independent of this graph construction.
+\end{remark}
+
+Using a holonomy filter on the free monoid generated by $\PP$, we define a transfer operator $\mathcal{L}_s$ and prove:
+
+\begin{theorem}[Recovery of the Zeta Function]
+\label{thm:vacuum-trace}
+For $\Re(s) > 1$, the Fredholm determinant of the vacuum-projected transfer operator satisfies:
+\[
+\det(I - \mathcal{L}_s)^{\mathrm{vac}} = \prod_p (1 - p^{-s}) = \frac{1}{\zeta(s)}.
+\]
+\end{theorem}
+
+\begin{proof}
+By the Ruelle identity \cite{Ruelle1976}, $\log\det(I - \mathcal{L}_s) = -\sum_{m=1}^\infty \frac{1}{m}\operatorname{Tr}(\mathcal{L}_s^m)$. The vacuum trace restricts to configurations forming prime-power loops, yielding $\operatorname{Tr}_{\mathrm{vac}}(\mathcal{L}_s^{m\log p}) = \log p \cdot p^{-ms}$, which integrates to $-\log(1-p^{-s})$.
+\end{proof}
+
+\subsection{The MEPP Heuristic}
+
+The Maximum Entropy Production Principle (MEPP) interprets the critical line $\Re(s) = 1/2$ as a detailed-balance condition:
+
+\begin{heuristic}[Model RH via MEPP]
+If the primes represent the optimally stable configuration of a ``prime gas'' subject to the PNT density constraint, the resulting Gibbs measure satisfies time-reversal symmetry, forcing zeros onto the critical line.
+\end{heuristic}
+
+This heuristic does not constitute a proof but motivates the thermodynamic perspective developed below.
+
+
+% =============================================================================
+\section{The Li Coefficients: Analytical Framework}
+\label{sec:li-coefficients}
+% =============================================================================
+
+\subsection{Bombieri--Lagarias Representation}
+
+The completed xi function $\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ provides the definitive representation:
+
+\begin{theorem}[Bombieri--Lagarias \cite{BombieriLagarias1999}]
+\label{thm:bombieri-lagarias}
+For $n \geq 1$:
+\[
+\lambda_n = \frac{1}{(n-1)!}\,\frac{\partial^n}{\partial s^n}\Big[s^{n-1}\log\xi(s)\Big]_{s=1}.
+\]
+Since $\xi(s)$ is entire of order~$1$ with $\xi(1) = 1/2 \neq 0$, $\log\xi(s)$ is holomorphic near $s = 1$ and the derivative is well-defined.
+\end{theorem}
+
+\subsection{Archimedean--Finite Decomposition}
+
+\begin{proposition}[Archimedean--Finite Decomposition]
+\label{prop:decomposition}
+Each Li coefficient decomposes as $\lambda_n = \lambda_n^{(\infty)} + \lambda_n^{(\mathrm{fin})}$, where:
+\begin{align}
+\lambda_n^{(\infty)} &= \frac{1}{(n-1)!}\frac{\partial^n}{\partial s^n}\Big[s^{n-1}\log\!\big(\tfrac{1}{2}s\,\pi^{-s/2}\,\Gamma(s/2)\big)\Big]_{s=1}, \label{eq:arch-part} \\
+\lambda_n^{(\mathrm{fin})} &= \frac{1}{(n-1)!}\frac{\partial^n}{\partial s^n}\Big[s^{n-1}\log g(s)\Big]_{s=1}, \quad g(s) := (s-1)\zeta(s). \label{eq:fin-part}
+\end{align}
+Both parts are individually computable; $g(s)$ is holomorphic at $s=1$ with $g(1) = 1$.
+\end{proposition}
+
+\begin{remark}[Three-regime structure]
+\label{rem:three-regime}
+Numerical computation reveals:
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Small $n$ ($n \lesssim 8$):} $\lambda_n^{(\infty)} < 0$, compensated by $\lambda_n^{(\mathrm{fin})} > 0$. Positivity is a delicate cancellation.
+  \item \textbf{Transition ($n \approx 8$):} $\lambda_n^{(\infty)}$ crosses zero.
+  \item \textbf{Large $n$ ($n \gg 10$):} $\lambda_n^{(\infty)} \sim \frac{n}{2}\log n$ dominates; positivity is automatic.
+\end{enumerate}
+The ``hard'' instances of Li's criterion concentrate in regime~(a). Table~\ref{tab:li-coefficients} shows the decomposition for $n = 1, \ldots, 13$.
+\end{remark}
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{r|r|r|r|r}
+$n$ & $\lambda_n$ & $\lambda_n^{(\infty)}$ & $\lambda_n^{(\mathrm{fin})}$ & $c_n = \lambda_n/n$ \\\hline
+1 & $0.023$ & $-0.554$ & $0.577$ & $0.023$ \\
+2 & $0.092$ & $-0.875$ & $0.967$ & $0.046$ \\
+3 & $0.208$ & $-1.013$ & $1.221$ & $0.069$ \\
+5 & $0.576$ & $-0.883$ & $1.458$ & $0.115$ \\
+8 & $1.466$ & $+0.021$ & $1.445$ & $0.183$ \\
+10 & $2.279$ & $+0.956$ & $1.324$ & $0.228$ \\
+13 & $3.817$ & $+2.725$ & $1.093$ & $0.294$ \\
+\end{tabular}
+\caption{Archimedean--finite decomposition of the Li coefficients. The sequence $c_n = \lambda_n/n$ is strictly increasing, ruling out complete monotonicity.}
+\label{tab:li-coefficients}
+\end{table}
+
+
+% =============================================================================
+\section{The Archimedean Dominance Paradox}
+\label{sec:dominance}
+% =============================================================================
+
+\begin{proposition}[Stability Decomposition]
+\label{prop:stability}
+The global curvature $\mathcal{M}(\sigma) = \partial_s^2\log\xi(s)$ decomposes as $\mathcal{M} = \mathcal{M}_{\mathrm{arith}} + \mathcal{M}_{\mathrm{arch}}$:
+\begin{enumerate}
+  \item \textbf{Arithmetic instability:} $\mathcal{M}_{\mathrm{arith}}(1) = \sum_\rho \Re(1/\rho^2) < 0$.
+  \item \textbf{Archimedean stability:} $\mathcal{M}_{\mathrm{arch}}(\sigma) > 0$ for $\sigma > 1/2$ (explicitly positive and convex).
+\end{enumerate}
+\end{proposition}
+
+\noindent The Riemann Hypothesis is equivalent to the archimedean convexity globally dominating the arithmetic concavity for all $\sigma > 1/2$. This ``dominance paradox'' --- a manifestly positive continuous term must overcome infinitely many oscillatory arithmetic contributions --- is the structural core of the problem.
+
+
+% =============================================================================
+\section{Structural Results}
+\label{sec:structural}
+% =============================================================================
+
+We establish five unconditional results that constrain the problem and form the toolkit for subsequent papers.
+
+\subsection{Prime-Sum Functionals and the Gibbs Framework}
+
+\begin{definition}[Arithmetic Gibbs Measure]
+The Gibbs measure is $\muG(p) = p^{-\sigma}/P(\sigma)$ with $P(\sigma) = \sum_p p^{-\sigma}$. The prime-sum functionals are:
+\begin{align*}
+A(\sigma) &:= \sum_p \frac{\log p}{p^\sigma(p^\sigma - 1)}, &
+B(\sigma) &:= \sum_p \frac{\log p}{p^\sigma},\\
+C(\sigma) &:= \sum_p \frac{(\log p)^2}{p^\sigma(p^\sigma - 1)}, &
+D(\sigma) &:= \sum_p \frac{(\log p)^2}{(p^\sigma - 1)^2}.
+\end{align*}
+\end{definition}
+
+\begin{lemma}[Finite-Part Convergence]
+\label{lem:convergence}
+$A(\sigma)$, $C(\sigma)$, and $D(\sigma)$ converge absolutely at $\sigma = 1$ and are right-continuous. $B(\sigma)$ and $P(\sigma)$ diverge as $\sim\log(1/(\sigma-1))$.
+\end{lemma}
+
+\begin{remark}[Gibbs normalization gap]
+The Gibbs-normalized expectation $-A(\sigma)/P(\sigma)$ loses the finite-part information as $\sigma \to 1^+$: the $1/P(\sigma)$ normalization annihilates $\lambda_n^{(\mathrm{fin})}$. This is the first hint that the thermodynamic approach has structural limitations (see Part~II).
+\end{remark}
+
+\subsection{Non-Identification Theorem}
+
+\begin{proposition}[Non-Identification]
+\label{prop:non-ident}
+The excess free energy $I_n := \lim_{\sigma \to 1^+}\Phi_n(\sigma)$ and the Li coefficient $\lambda_n$ are generically \emph{not} equal: $I_n \neq \lambda_n$. The former is a KL divergence (tilt cost), the latter a spectral trace of $\log\xi$.
+\end{proposition}
+
+\subsection{Variance Lower Bound}
+
+\begin{proposition}[Variance Bound]
+\label{prop:variance}
+$I_1 \geq \frac{1}{2}V_1$ where $V_1 = \lim_{\sigma \to 1^+}\mathrm{Var}_{\muG}(H_{1,\sigma}) > 0$. Numerically, $I_1 \geq 0.034 > \lambda_1 \approx 0.023$.
+\end{proposition}
+
+\subsection{OS Reflection Positivity}
+
+\begin{proposition}[OS Reflection Positivity]
+\label{prop:os}
+The Osterwalder--Schrader form
+\[
+K(t,u) = \sum_{p \in \PP} w_p\,e^{-i(u-t)\log p}, \qquad w_p = \frac{p^{-(\sigma+1)}}{P(\sigma)} > 0,
+\]
+is positive definite on $L^2_+(\mathbb{R})$. The OS Hilbert space carries a contractive semigroup $e^{-\tau H}$ with $H = \mathrm{diag}(\log p)$.
+\end{proposition}
+
+\begin{proof}
+By Bochner's theorem: $K(t,u) = \hat{\mu}(u-t)$ with $\mu = \sum_p w_p\,\delta_{\log p}$ a positive measure, so $\int\!\!\int \bar{f}(t)f(u)K(t,u)\,dt\,du = \sum_p w_p|\hat{f}(\log p)|^2 \geq 0$.
+\end{proof}
+
+\subsection{Arithmetic Uncertainty Relation}
+
+\begin{theorem}[Arithmetic Uncertainty Relation]
+\label{thm:uncertainty}
+For normalized $\psi \in \ell^2(\PP)$, define the prime-domain spread $\Delta_D$ and the zero-domain spread $\Delta_t$ via $\hat\psi(t) = \sum_p a_p e^{-it\log p}$. Then $\Delta_D \cdot \Delta_t \geq 1/2$.
+\end{theorem}
+
+\begin{proof}
+The substitution $x_p = \log p$ reduces this to the Heisenberg--Kennard--Weyl inequality.
+\end{proof}
+
+\begin{remark}
+A zero off the critical line would require a ``localized phase conspiracy'' among finitely many primes, which the arithmetic incommensurability of $\{\log p\}$ makes heuristically implausible. This is a consistency check, not a proof.
+\end{remark}
+
+\subsection{Strict Convexity and the Spectral Census}
+
+\begin{proposition}[Strict Convexity]
+\label{prop:convexity}
+$F(\sigma) := -\log\zeta(\sigma)$ is strictly convex on $(1,\infty)$: $F''(\sigma) = \sum_p (\log p)^2 p^{-\sigma}/(1-p^{-\sigma})^2 > 0$.
+\end{proposition}
+
+\begin{proposition}[Spectral Census]
+\label{prop:spectral-census}
+For the symmetrized arithmetic kernel $\Ksym$ truncated to $N \geq 300$ primes and $\sigma \in (1, 5)$, the negative inertia index is exactly~$2$, independent of $N$ and $\sigma$.
+\end{proposition}
+
+
+% =============================================================================
+\section{The Gauge Equivalence Framework}
+\label{sec:gauge}
+% =============================================================================
+
+The spectral census (\Cref{prop:spectral-census}) suggests a gauge-correction approach: can a rank-2 correction restore positive-semidefiniteness?
+
+\begin{definition}[Admissible Gauge]
+A symmetric kernel $G_\sigma$ on $\PP \times \PP$ is admissible if $\sum_{p,q}G_\sigma(p,q)\muG(p)\muG(q) = 0$.
+\end{definition}
+
+\begin{theorem}[Gauge Equivalence]
+\label{thm:gauge}
+For fixed $\sigma > 1$, the following are equivalent:
+\begin{enumerate}[label=(\roman*)]
+  \item The target functional $F(\sigma) = A(\sigma)B(\sigma) - P(\sigma)[C(\sigma)+D(\sigma)] \geq 0$.
+  \item There exists an admissible gauge making $\Ksym + G_\sigma \succeq 0$.
+\end{enumerate}
+\end{theorem}
+
+This tautological equivalence provides the formal structure for the gauge-theoretic approach. Whether it leads anywhere depends on the \emph{global} behavior of $F(\sigma)$ --- a question addressed in Part~II, where we discover that $F(\sigma) < 0$ for $\sigma > 1.14$.
+
+
+% =============================================================================
+\section{Summary: The Starting Position}
+\label{sec:summary}
+% =============================================================================
+
+At the end of Part~I, we have assembled the following toolkit:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll}
+\toprule
+\textbf{Result} & \textbf{Status} \\
+\midrule
+R1: Bombieri--Lagarias representation & proven \\
+R2: Archimedean--finite decomposition & proven \\
+R3: Non-identification ($I_n \neq \lambda_n$) & proven \\
+R4: Variance lower bound ($I_1 \geq \frac{1}{2}V_1$) & proven \\
+R5: Arithmetic uncertainty relation & proven \\
+R6: Strict convexity of $-\log\zeta$ & proven \\
+R7: OS reflection positivity & proven \\
+R8: Spectral census (index $= 2$) & numerical \\
+R9: Gauge equivalence (tautological) & proven \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The hope is clear: use the gauge framework (R9) together with the spectral census (R8) to construct a global certificate proving $\lambda_n \geq 0$. Part~II will show that this hope is dashed by a sign change at $\sigma_0 \approx 1.14$ --- but that a completely different approach, through Connes' Weil quadratic form, opens a new and more promising path.
+
+
+\begin{thebibliography}{9}
+
+\bibitem{Li1997}
+X.-J.~Li, \emph{The positivity of a sequence of numbers and the Riemann hypothesis}, J.~Number Theory~\textbf{65} (1997), 325--333.
+
+\bibitem{BombieriLagarias1999}
+E.~Bombieri and J.~C.~Lagarias, \emph{Complements to Li's criterion for the Riemann hypothesis}, J.~Number Theory~\textbf{77} (1999), 274--287.
+
+\bibitem{Ruelle1976}
+D.~Ruelle, \emph{Zeta-functions for expanding maps and Anosov flows}, Invent.~Math.~\textbf{34} (1976), 231--242.
+
+\bibitem{Geiger2026partII}
+L.~Geiger, \emph{A Gauge-theoretic Reformulation of the Riemann Hypothesis: Part~II: The Path and the Dead Ends}, 2026.
+
+\bibitem{Geiger2026partIII}
+L.~Geiger, \emph{Even Dominance of the Weil Quadratic Form: Structural Analysis and Computer-Assisted Proof}, 2026.
+
+\bibitem{Geiger2026partIV}
+L.~Geiger, \emph{A Gauge-theoretic Reformulation of the Riemann Hypothesis: Part~IV: Conclusio}, 2026.
+
+\end{thebibliography}
+
+\end{document}

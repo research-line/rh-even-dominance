@@ -1,0 +1,289 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Ksym}{K_\sigma^{\mathrm{sym}}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\muG}{\mu_\sigma}
+\newcommand{\PP}{\mathcal{P}}
+
+\title{A Gauge-theoretic Reformulation of the Riemann Hypothesis:\\
+Part~II: The Path and the Dead Ends}
+\author{Lukas Geiger\\
+\small Bernau, Germany\\
+\small ORCID: \href{https://orcid.org/0009-0005-7296-1534}{0009-0005-7296-1534}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This second paper documents the systematic exploration --- and ultimately the failure --- of the gauge-theoretic approach to the Riemann Hypothesis developed in Part~I. We identify four critical errors (K1--K4) that individually and collectively doom the original proof strategy: the Gibbs normalization gap, the sign change of the target functional, the wrong monotonicity direction, and the trace-class obstruction. Each failure is analyzed in detail, and the honest conclusion is drawn that the thermodynamic approach, while producing genuine structural insights, cannot by itself prove the Riemann Hypothesis. We then localize the difficulty precisely: through a nine-step logical chain, we show that the \emph{entire} content of RH concentrates in a single step (S5: the unconditional positivity of the Li coefficients). We formulate five concrete open problems and identify the reorientation toward Connes' spectral program as the path forward.
+\end{abstract}
+
+\noindent\textbf{MSC 2020:} 11M26, 11M36, 47A75\\
+\textbf{Keywords:} Riemann Hypothesis, obstructions, Li coefficients, gauge positivity, open problems
+
+\tableofcontents
+
+
+% =============================================================================
+\section{Introduction: The Original Strategy}
+\label{sec:intro}
+% =============================================================================
+
+Part~I established a toolkit of nine structural results (R1--R9) and the gauge equivalence framework. The original proof strategy was:
+
+\begin{enumerate}
+  \item Use the spectral census (R8: negative inertia index $= 2$) to identify the unstable modes.
+  \item Construct an explicit rank-2 gauge correction restoring positive-semidefiniteness.
+  \item Apply the gauge equivalence theorem (R9) to deduce $\lambda_n \geq 0$.
+\end{enumerate}
+
+This strategy fails at step~2. In this paper, we document four independent obstructions that kill it, then use the resulting understanding to localize the difficulty precisely.
+
+
+% =============================================================================
+\section{Dead End 1: The Gibbs Normalization Gap (K1)}
+\label{sec:K1}
+% =============================================================================
+
+The thermodynamic formulation defines the renormalized constraint $m_n(\sigma) = \EE_{\muG}[X_{n,\sigma}] - h_n(\sigma)$, with the hope that $\lim_{\sigma \to 1^+} m_n(\sigma) = \lambda_n$.
+
+\begin{proposition}[K1: Critical Identification Fails]
+\label{prop:K1}
+The Gibbs-normalized expectation $m_1(\sigma) = -A(\sigma)/P(\sigma) - h_1(\sigma)$ does \emph{not} converge to $\lambda_1$ as $\sigma \to 1^+$. The $1/P(\sigma)$-normalization annihilates the finite-part contribution $\lambda_1^{(\mathrm{fin})} = \gamma \approx 0.577$.
+\end{proposition}
+
+\begin{proof}
+The numerator sum $S(\sigma) = \sum_p (\log p)p^{-\sigma}f(p,\sigma)$ converges to a finite limit, while $P(\sigma) \to \infty$. Therefore $-S(\sigma)/P(\sigma) \to 0$. The Li coefficient $\lambda_1$ arises from $\frac{d}{ds}\log\xi(s)|_{s=1}$, which involves $\zeta'(s)/\zeta(s) + 1/(s-1) \to \gamma$ --- a cancellation that occurs \emph{before} Gibbs normalization, not after.
+\end{proof}
+
+\begin{remark}[Consequence]
+The excess free energy $I_n$ and the Li coefficient $\lambda_n$ are structurally distinct objects (Part~I, \Cref{prop:non-ident}). Even $I_n \geq 0$ (which holds unconditionally as a KL divergence) does not imply $\lambda_n \geq 0$. This is the ``convexity trap'': by the Bregman inequality, $I_n \geq 0$ is a universal identity for any strictly convex generating function, independent of $\mathrm{sign}(\lambda_n)$.
+\end{remark}
+
+
+% =============================================================================
+\section{Dead End 2: Global Gauge Positivity Fails (K2)}
+\label{sec:K2}
+% =============================================================================
+
+The gauge equivalence theorem (Part~I, R9) requires $F(\sigma) \geq 0$ for all $\sigma > 1$.
+
+\begin{proposition}[K2: Sign Change of $F(\sigma)$]
+\label{prop:K2}
+The target functional $F(\sigma) = A(\sigma)B(\sigma) - P(\sigma)[C(\sigma) + D(\sigma)]$ satisfies:
+\begin{itemize}
+  \item $F(\sigma) > 0$ for $\sigma \in (1, \sigma_0)$ with $\sigma_0 \approx 1.14$,
+  \item $F(\sigma) < 0$ for all tested $\sigma > \sigma_0$ (minimum $F \approx -0.184$ at $\sigma \approx 1.28$).
+\end{itemize}
+This sign change is independent of RH.
+\end{proposition}
+
+\begin{proof}
+Near $\sigma = 1 + \varepsilon$: $A \cdot B \sim 1/\varepsilon$ dominates $P(C+D) \sim \log(1/\varepsilon)$, so $F > 0$. For larger $\sigma$: $B(\sigma)$ decays faster than $P(\sigma)$, and the product $AB$ falls below $P(C+D)$. Numerical computation with $N = 10000$ primes and Rosser--Schoenfeld tail bounds confirms the transition at $\sigma_0 \approx 1.14$.
+\end{proof}
+
+\begin{remark}[Consequence]
+The claim ``RH $\Leftrightarrow$ $F(\sigma) \geq 0$ for all $\sigma > 1$'' is \textbf{false}. The gauge approach works only in the boundary layer $(1, 1.14)$, not globally. No admissible gauge can make $\Ksym$ positive-semidefinite for $\sigma > 1.14$.
+\end{remark}
+
+
+% =============================================================================
+\section{Dead End 3: Monotonicity Direction Wrong (K3)}
+\label{sec:K3}
+% =============================================================================
+
+The original argument assumed that $\frac{d}{ds}\log\xi(\sigma)$ is decreasing, making $\lambda_1$ the maximum.
+
+\begin{proposition}[K3: Convexity, Not Concavity]
+\label{prop:K3}
+$\frac{d^2}{ds^2}\log\xi(\sigma) \approx +0.046 > 0$ at $\sigma = 1$. The function $\log\xi$ is \emph{convex} near $s = 1$, not concave. Therefore $\lambda_1$ is the \emph{minimum} of the derivative profile, not the maximum.
+\end{proposition}
+
+\begin{remark}[Consequence]
+This reverses the logic of the monotonicity argument: instead of showing $\lambda_1 \geq 0$ by bounding the maximum from below, one would need to bound the minimum from below --- a strictly harder problem.
+\end{remark}
+
+
+% =============================================================================
+\section{Dead End 4: The Stieltjes Realization and A8 (K4)}
+\label{sec:K4}
+% =============================================================================
+
+\subsection{Path D2: Stieltjes Realization}
+
+\begin{proposition}[K4a: Complete Monotonicity Fails]
+The sequence $c_n = \lambda_n/n$ is \emph{strictly increasing}: $c_1 \approx 0.023$, $c_{13} \approx 0.294$, with $c_n \sim \frac{1}{2}\log n$ asymptotically. This violates complete monotonicity at $k = 1$ ($\Delta c_n > 0$, so $(-1)^1\Delta c_n < 0$). The Stieltjes realization approach with a measure on $[0,1]$ is ruled out.
+\end{proposition}
+
+Under RH, the spectral measure lives on the unit circle $|w_\rho| = 1$, not $[0,1]$. The positivity of $c_n$ is an essentially number-theoretic property.
+
+\subsection{K4b: Inconsistency of the Original A8}
+
+\begin{proposition}[Hardy Contradiction]
+The original axiom A8 posits $\mathcal{K}_0 \geq 0$ trace-class with $\xi(1/2+it) = C\cdot\det(I + V_t\mathcal{K}_0V_t^*)$. But $\mathcal{K}_0 \geq 0$ implies $\det(I + V_t\mathcal{K}_0V_t^*) \geq 1 > 0$ for all real $t$. This contradicts Hardy's theorem (1914): $\xi$ has infinitely many zeros on the critical line.
+\end{proposition}
+
+\subsection{The Trace-Class Obstruction}
+
+The corrected axiom A8$'$ requires $\xi(s)/\xi(0) = \det(I - \mathcal{L}_s)$ with $\mathcal{L}_s$ nuclear. However, the Euler product gives $\mathcal{L}_s = \mathrm{diag}(p^{-s})$ on $\ell^2(\PP)$, which is trace-class only for $\Re(s) > 1$. At the critical line, $\sum_p p^{-1/2} = +\infty$.
+
+For the Selberg zeta function, the analogous construction works because geodesic lengths grow exponentially ($\#\{\gamma: l_\gamma \leq T\} \sim e^T/T$), while prime ``lengths'' $\log p$ are too dense ($\pi(x) \sim x/\log x$). This density gap is the fundamental obstruction.
+
+
+% =============================================================================
+\section{Route Analysis: What Survives}
+\label{sec:routes}
+% =============================================================================
+
+The axiom system A0--A9 admits two logical routes to RH:
+
+\begin{description}[font=\bfseries,leftmargin=2em]
+  \item[Route 1 (A7 + A8$'$):] A7 (OS reflection positivity) is \textbf{proven}. A8$'$ (nuclear Fredholm determinant for $\xi$) remains \textbf{open} and faces the trace-class obstruction.
+  \item[Route 2 (A9):] \textbf{Dead.} A9(i--ii) hold, but A9(iii) is broken by K1 and the convexity trap.
+\end{description}
+
+
+% =============================================================================
+\section{The Localization Table}
+\label{sec:localization}
+% =============================================================================
+
+We trace the logical chain from definitions to RH, identifying exactly where the difficulty concentrates.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|l|l|l}
+\textbf{Step} & \textbf{Statement} & \textbf{Status} & \textbf{Method} \\\hline
+S1 & Define $\xi(s)$ & proven & definition \\
+S2 & $\lambda_n$ via Bombieri--Lagarias & proven & \cite{BombieriLagarias1999} \\
+S3 & $\lambda_n = \lambda_n^{(\infty)} + \lambda_n^{(\mathrm{fin})}$ & proven & Part~I \\
+S4 & $\lambda_n^{(\infty)} \sim \frac{n}{2}\log n$ for large $n$ & proven & Stirling \\
+\textbf{S5} & \textbf{$\lambda_n \geq 0$ for all $n \geq 1$} & \textbf{OPEN} & \textbf{$\Longleftrightarrow$ RH} \\
+S6 & All zeros on $\Re(s) = 1/2$ & $\Leftrightarrow$ S5 & Li (1997) \\
+S7 & $\pi(x) = \mathrm{Li}(x) + O(\sqrt{x}\log x)$ & $\Leftarrow$ S6 & von Koch \\
+S8 & Spectral census (index $= 2$) & numerical & Part~I \\
+S9 & Gauge equivalence (tautological) & proven & Part~I \\
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Conclusion:} The \emph{entire} content of the Riemann Hypothesis concentrates in Step S5. Everything before it is unconditional; everything after it is either equivalent or a consequence. The FST-RH program has not reduced S5 to a simpler statement.
+
+
+% =============================================================================
+\section{Five Open Problems}
+\label{sec:open-problems}
+% =============================================================================
+
+Based on our analysis, we formulate five concrete open problems ordered by estimated difficulty:
+
+\begin{conjecture}[OP1: Analytical Proof of Index Rigidity]
+The negative inertia index of $\Ksym$ is exactly~$2$ for all $N$ sufficiently large and $\sigma \in (1, \sigma_{\max})$. A proof should exploit the rank-2 hub structure of the transfer operator.
+\end{conjecture}
+
+\begin{conjecture}[OP2: Uniform Bound on $\lambda_n^{(\mathrm{fin})}$]
+$\lambda_n^{(\mathrm{fin})} > 0$ for all $n \geq 1$. This is supported by the numerical observation that $\lambda_n^{(\mathrm{fin})}$ is always positive with slow algebraic decay.
+\end{conjecture}
+
+\begin{conjecture}[OP3: Growth Rate]
+$\lambda_n^{(\infty)} \sim \frac{n}{2}\log n$ with explicit error bounds, uniform in $n$. This would settle RH for all $n$ above an explicit threshold.
+\end{conjecture}
+
+\begin{conjecture}[OP4: Small-$n$ Positivity]
+$\lambda_n > 0$ for $n = 1, \ldots, n_0$ (some explicit $n_0$) unconditionally --- without assuming RH. The first $10^4$ coefficients are known to be positive \cite{Keiper1992}.
+\end{conjecture}
+
+\begin{conjecture}[OP5: Nuclear Transfer Operator for $\xi$]
+Construct a separable Hilbert space $\mathcal{V}$ and a nuclear family $s \mapsto \mathcal{L}_s$ with $\xi(s)/\xi(0) = \det(I - \mathcal{L}_s)$, spectral radius $< 1$ for $\Re(s) > 1/2$, and eigenvalue $1$ at the zeros.
+\end{conjecture}
+
+OP5 is essentially the Hilbert--P\'olya program and connects to Deninger's foliated spaces \cite{Deninger2002} and Connes' adelic approach \cite{Connes1999}.
+
+
+% =============================================================================
+\section{Reorientation: Connes' Spectral Program}
+\label{sec:reorientation}
+% =============================================================================
+
+The failure of the gauge-theoretic approach (K1--K4) forces a fundamental reorientation. A recent survey by Connes \cite{Connes2025} provides a new path: the Weil quadratic form $\mathrm{QW}_\lambda$ on $L^2([-\log\lambda, \log\lambda])$, constructed from the Weil explicit formula, defines a self-adjoint operator $A_\lambda$ whose spectral properties are directly linked to the zeros of $\zeta$.
+
+\begin{theorem}[Connes, Theorem 6.1 in \cite{Connes2025}]
+If the minimum eigenvalue of $A_\lambda$ is simple with even eigenfunction, then the Fourier transform of the eigenfunction has all zeros on the real line.
+\end{theorem}
+
+Connes' Section~6.6 identifies the verification of this \emph{even dominance} property as the remaining open step. Crucially, Connes' Hurwitz argument requires even dominance only along a sequence $\lambda_n \to \infty$, not for all $\lambda$.
+
+This is where the thermodynamic insight pays off in an unexpected way: the decomposition analysis from Part~I (the prime-sum functionals, the trigonometric structure of shift operators) becomes the key to understanding \emph{why} even dominance holds. Part~III develops this completely, establishing the Shift Parity Lemma, the frontier-prime mechanism, and a computer-assisted proof of even dominance at $\lambda = 100$ and $200$.
+
+\begin{remark}[From despair to hope]
+The gauge-theoretic approach failed because it tried to prove a \emph{global} statement ($\lambda_n \geq 0$ for all $n$) via a \emph{local} tool (the Gibbs measure near $\sigma = 1$). The Connes approach succeeds where the gauge approach fails because it works directly in the spectral domain of $A_\lambda$, where the even-odd decomposition provides a natural structure. The Shift Parity Lemma (Part~III) shows that this structure is fundamentally algebraic, not analytic.
+\end{remark}
+
+
+% =============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% =============================================================================
+
+This paper has documented an honest failure. The gauge-theoretic approach to the Riemann Hypothesis, despite producing genuine structural insights (R1--R9), cannot bridge the gap between the local thermodynamic analysis and the global spectral positivity required by Li's criterion. Four independent obstructions (K1--K4) kill the original strategy, and the localization table shows that no reduction to a simpler problem has been achieved: the difficulty remains concentrated in Step~S5.
+
+However, the failure is productive:
+\begin{enumerate}
+  \item The dead ends (K1--K4) are clearly mapped, preventing others from pursuing them.
+  \item The structural results (R1--R9) form a permanent toolkit.
+  \item The reorientation to Connes' program leverages the thermodynamic insight (prime shift operators, trigonometric structure) in a new context.
+  \item The understanding that even dominance is driven by prime contributions, not archimedean effects, emerged directly from the decomposition analysis.
+\end{enumerate}
+
+Part~III takes up the new thread: the Shift Parity Lemma, the computer-assisted proof of even dominance, and the identification of the cumulative step as the remaining challenge.
+
+
+\begin{thebibliography}{9}
+
+\bibitem{BombieriLagarias1999}
+E.~Bombieri and J.~C.~Lagarias, \emph{Complements to Li's criterion for the Riemann hypothesis}, J.~Number Theory~\textbf{77} (1999), 274--287.
+
+\bibitem{Keiper1992}
+J.~B.~Keiper, \emph{Power series expansions of Riemann's $\xi$ function}, Math.~Comp.~\textbf{58} (1992), 765--773.
+
+\bibitem{Connes1999}
+A.~Connes, \emph{Trace formula in noncommutative geometry and the zeros of the Riemann zeta function}, Selecta Math.~\textbf{5} (1999), 29--106.
+
+\bibitem{Connes2025}
+A.~Connes, \emph{Prolate and the Riemann zeta function}, arXiv:2602.04022v1, 2025.
+
+\bibitem{Deninger2002}
+C.~Deninger, \emph{On the nature of the ``explicit formulas'' in analytic number theory}, Banach Center Publ.~\textbf{57} (2002), 97--118.
+
+\bibitem{Geiger2026partI}
+L.~Geiger, \emph{A Gauge-theoretic Reformulation of the Riemann Hypothesis: Part~I: The Landscape}, 2026.
+
+\bibitem{Geiger2026partIII}
+L.~Geiger, \emph{Even Dominance of the Weil Quadratic Form: Structural Analysis and Computer-Assisted Proof}, 2026.
+
+\bibitem{Geiger2026partIV}
+L.~Geiger, \emph{A Gauge-theoretic Reformulation of the Riemann Hypothesis: Part~IV: Conclusio}, 2026.
+
+\end{thebibliography}
+
+\end{document}

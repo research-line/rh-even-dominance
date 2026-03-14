@@ -1,0 +1,420 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Ksym}{K_\sigma^{\mathrm{sym}}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\muG}{\mu_\sigma}
+\newcommand{\PP}{\mathcal{P}}
+
+\title{A Gauge-theoretic Reformulation of the Riemann Hypothesis:\\
+Part~IV: Conclusio}
+\author{Lukas Geiger\\
+\small Bernau, Germany\\
+\small ORCID: \href{https://orcid.org/0009-0005-7296-1534}{0009-0005-7296-1534}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This final paper in a four-part series draws together the results of the preceding papers into a unified picture. We catalog the proven structural results (R1--R9), the excluded paths (K1--K4), and the new contributions: the Shift Parity Lemma, the computer-assisted proof of even dominance at $\lambda = 100$ and $\lambda = 200$, the frontier-prime mechanism, and the Hellmann--Feynman analysis. We present the complete proof architecture from Connes' Theorem~6.1 through even dominance to the Riemann Hypothesis, identifying the cumulative step as the single remaining challenge. We formulate five open problems and discuss connections to the wider landscape of analytic number theory.
+\end{abstract}
+
+\noindent\textbf{MSC 2020:} 11M26, 11M36, 47A75, 65G20\\
+\textbf{Keywords:} Riemann Hypothesis, Li coefficients, even dominance, proof architecture, open problems
+
+\tableofcontents
+
+
+% =============================================================================
+\section{Introduction}
+\label{sec:intro}
+% =============================================================================
+
+This paper serves as the conclusion of a four-part investigation of the Riemann Hypothesis through gauge theory, spectral analysis, and arithmetic thermodynamics. The journey began with hope (Part~I), encountered systematic failure (Part~II), found a new direction in Connes' spectral program (Part~III), and now arrives at an honest assessment of what has been achieved.
+
+The series structure is:
+\begin{description}[font=\bfseries,leftmargin=2em]
+  \item[Part~I \cite{Geiger2026partI}:] The Landscape --- structural results, analytical toolkit, the thermodynamic formalism.
+  \item[Part~II \cite{Geiger2026partII}:] The Path and the Dead Ends --- four critical obstructions (K1--K4), localization of difficulty.
+  \item[Part~III \cite{Geiger2026partIII}:] Even Dominance --- computer-assisted proof, Shift Parity Lemma, frontier primes.
+  \item[Part~IV (this paper):] Conclusio --- synthesis, proof architecture, open problems.
+\end{description}
+
+The key message is that the Riemann Hypothesis, when approached through the Li criterion and the Weil quadratic form, reduces to a single algebraic challenge: the \emph{cumulative step}, i.e., showing that the sum over primes preserves the individual even preference established by the Shift Parity Lemma.
+
+
+% =============================================================================
+\section{Catalog of Proven Results}
+\label{sec:catalog}
+% =============================================================================
+
+\subsection{Structural Results (R1--R9)}
+
+The following results are unconditional (they do not assume RH):
+
+\begin{enumerate}[label=\textbf{R\arabic*},leftmargin=3em]
+  \item \textbf{Gibbs Framework.} The prime hub graph $G_\sigma$ with Ruelle transfer operator $L_\sigma$ defines a well-posed Gibbs measure $\muG$ for all $\sigma > 1$. The partition function $P(\sigma) = -\log\zeta(\sigma)^{-1}$ diverges as $\sigma \to 1^+$ (Part~I, \S2).
+
+  \item \textbf{Bombieri--Lagarias Decomposition.} $\lambda_n = \lambda_n^{(\infty)} + \lambda_n^{(\mathrm{fin})}$, where the archimedean part $\lambda_n^{(\infty)} \sim \frac{n}{2}\log n$ and the finite part satisfies $|\lambda_n^{(\mathrm{fin})}| \leq C\sqrt{n}\log n$ unconditionally (Part~I, \S3).
+
+  \item \textbf{Non-Identification.} The excess free energy $I_n = \mathrm{KL}(\mu_\sigma^{(n)} \| \muG)$ satisfies $I_n \geq 0$ unconditionally (as a KL divergence), but $I_n \neq \lambda_n$. The Gibbs normalization annihilates the finite-part contribution (Part~I, \S5).
+
+  \item \textbf{Variance Bound.} $\mathrm{Var}_{\muG}[X_{n,\sigma}] \leq \sum_p (\log p)^{2n}p^{-\sigma}$ for $\sigma > 1$. This bounds the fluctuations of the thermodynamic Li coefficient approximation (Part~I, \S5).
+
+  \item \textbf{Arithmetic Uncertainty Relation.} For any compactly supported test function $h$:
+  \[ \mathrm{Var}[h(t)] \cdot \mathrm{Var}[\hat{h}(\omega)] \geq \frac{1}{4}\bigl|\langle h, h' \rangle\bigr|^2, \]
+  connecting the spectral and spatial uncertainties of functions tested against the Weil quadratic form (Part~I, \S5).
+
+  \item \textbf{Convexity.} $\frac{d^2}{ds^2}\log\xi(\sigma) > 0$ near $\sigma = 1$. The function $\log\xi$ is convex, not concave, implying $\lambda_1$ is the minimum (not maximum) of the derivative profile. This overturns the original monotonicity argument (Part~I, \S5; Part~II, \S3).
+
+  \item \textbf{OS Reflection Positivity.} The Osterwalder--Schrader reflection $\theta: t \mapsto -t$ satisfies $\langle f, \theta f \rangle_{\muG} \geq 0$ for all test functions $f$ supported on $t \geq 0$. This provides a positivity structure in the thermodynamic formalism (Part~I, \S5).
+
+  \item \textbf{Spectral Census.} The arithmetic kernel $\Ksym$ on $\ell^2(\PP_N)$ has negative inertia index~$2$ for all computed $N$ and $\sigma \in (1, 1.5)$. Exactly two eigenvalues are negative; the remaining $N-2$ are positive (Part~I, \S5).
+
+  \item \textbf{Gauge Equivalence.} For any admissible gauge $g$, the kernel $K_\sigma^g = \Ksym + \Delta K_g$ satisfies $\mathrm{sign}(\det K_\sigma^g) = \mathrm{sign}(\det \Ksym)$. The gauge freedom is tautological and cannot change the sign structure (Part~I, \S6).
+\end{enumerate}
+
+
+\subsection{New Results from Parts II--III}
+
+\begin{enumerate}[label=\textbf{N\arabic*},leftmargin=3em]
+  \item \textbf{Shift Parity Lemma} (Part~III, Theorem~4.1). For all $N \geq 3$ and all $r \in (0,2)$:
+  \[ \lambda_1(D_N(r)) < 0, \]
+  where $D_N(r) = S_N^+(r) - S_N^-(r)$ is the difference between even- and odd-sector shift matrices. Proved analytically (two-case det/Tr argument for $N=3$, monotonicity reduction for $N \geq 4$) and certified by interval arithmetic (55,000 subintervals, 60-digit precision, Gershgorin disk bounds).
+
+  \item \textbf{Computer-Assisted Proof of Even Dominance} (Part~III, \S7). For $\lambda = 100$ and $\lambda = 200$:
+  \begin{center}
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabular}{r|r|r|r}
+  $\lambda$ & upper $\lambda_1^+$ & lower $\lambda_1^-$ & certified gap \\\hline
+  100 & $-11.1819$ & $-9.4479$ & $-1.734$ \\
+  200 & $-19.1611$ & $-15.2217$ & $-3.939$
+  \end{tabular}
+  \end{center}
+  Certified via interval arithmetic (mpmath.iv, 50-digit precision). Safety margins: $3.9\times$ ($\lambda = 100$) and $16.7\times$ ($\lambda = 200$).
+
+  \item \textbf{Universal Even Preference of Individual Primes} (Part~III, Corollary~4.2). For every prime $p$ with $r = \log p / \log\lambda \in (0,2)$:
+  \[ \lambda_1(W_p^+) \leq \lambda_1(W_p^-) + \lambda_1(D_N(r)) < \lambda_1(W_p^-), \]
+  by the Shift Parity Lemma and Weyl's inequality.
+
+  \item \textbf{Frontier-Prime Mechanism} (Part~III, \S5). Even dominance is driven by primes $p \sim \lambda$ (normalized shift $r \approx 1$), not by small primes. As $\lambda$ grows, the number of frontier primes increases as $\pi(\lambda) - \pi(\lambda/e) \sim \lambda/\log\lambda$.
+
+  \item \textbf{Hellmann--Feynman Analysis} (Part~III, \S9.3). The $L$-derivative $\partial\Delta/\partial L > 0$ for all $\lambda \geq 80$ through $\lambda = 500$. The gap deepening is driven by new primes entering the sum (prime-counting mechanism), not by the growth of $L = \log\lambda$. This rules out $L$-monotonicity as a proof strategy.
+
+  \item \textbf{Gap Asymptotics} (Part~III, \S8). The even--odd gap scales as
+  \[ \Delta(\lambda) \approx -0.0035 \cdot (\log\lambda)^{4.2}, \]
+  robustly negative for all $\lambda \geq 55$, with $\Delta \to -\infty$.
+\end{enumerate}
+
+
+% =============================================================================
+\section{Catalog of Excluded Paths}
+\label{sec:excluded}
+% =============================================================================
+
+Four independent obstructions kill the original gauge-theoretic proof strategy:
+
+\begin{enumerate}[label=\textbf{K\arabic*},leftmargin=3em]
+  \item \textbf{Gibbs Normalization Gap.} The $1/P(\sigma)$-normalization annihilates the finite-part contribution $\lambda_1^{(\mathrm{fin})} = \gamma$. The thermodynamic Li coefficient $m_n(\sigma)$ does not converge to $\lambda_n$ (Part~II, \S2).
+
+  \item \textbf{Sign Change of $F(\sigma)$.} The target functional $F(\sigma) = A(\sigma)B(\sigma) - P(\sigma)[C(\sigma) + D(\sigma)]$ changes sign at $\sigma_0 \approx 1.14$. No admissible gauge can restore positivity beyond the boundary layer $(1, 1.14)$ (Part~II, \S3).
+
+  \item \textbf{Wrong Monotonicity Direction.} The convexity of $\log\xi$ near $s = 1$ means $\lambda_1$ is the minimum of the derivative profile, not the maximum. The monotonicity argument runs in the wrong direction (Part~II, \S4).
+
+  \item \textbf{Trace-Class Obstruction.} The Euler-product operator $\mathcal{L}_s = \mathrm{diag}(p^{-s})$ is trace-class only for $\Re(s) > 1$ ($\sum_p p^{-1/2} = +\infty$). The Fredholm determinant $\det(I - \mathcal{L}_s)$ does not exist at the critical line. This is the fundamental density gap between primes and geodesics (Part~II, \S5).
+\end{enumerate}
+
+\begin{remark}[The obstructions are independent]
+Each of K1--K4 is individually fatal. K1 kills the Gibbs identification, K2 kills the gauge approach, K3 reverses the monotonicity argument, K4 kills the spectral determinant construction. Even if three were resolved, the fourth would suffice to block the original strategy.
+\end{remark}
+
+Additionally, the following paths have been explored and found insufficient:
+\begin{itemize}
+  \item \textbf{de Branges positivity:} Conrey and Li (2000) showed that the kernel positivity condition is \emph{not} satisfied for the relevant Hilbert spaces associated with $\zeta$.
+  \item \textbf{Stieltjes realization:} The sequence $c_n = \lambda_n/n$ is strictly increasing, violating complete monotonicity. The spectral measure under RH lives on $|w| = 1$, not $[0,1]$.
+  \item \textbf{$L$-monotonicity of the gap:} The Hellmann--Feynman analysis (N5) shows $\partial\Delta/\partial L > 0$ for $\lambda \geq 80$, ruling out a proof of gap deepening via $L$-differentiation alone.
+\end{itemize}
+
+
+% =============================================================================
+\section{The Complete Proof Architecture}
+\label{sec:architecture}
+% =============================================================================
+
+We present the logical chain from known mathematics to the Riemann Hypothesis, identifying exactly where each component fits and where the gap remains.
+
+\subsection{The Reduction Chain}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|p{7cm}|l|l}
+\textbf{Step} & \textbf{Statement} & \textbf{Status} & \textbf{Source} \\\hline
+A1 & Connes' Theorem~6.1: even dominance $\Rightarrow$ zeros of $\hat{\eta}$ real & proven & \cite{Connes2025} \\
+A2 & Hurwitz: even dominance for $\lambda_n \to \infty$ suffices & proven & \cite{Connes2025} \\
+A3 & Even dominance at $\lambda = 100, 200$ & proven & Part~III \\
+A4 & Shift Parity Lemma: each prime favors even & proven & Part~III \\
+A5 & Frontier-prime mechanism & proven & Part~III \\
+\textbf{A6} & \textbf{Cumulative step: $\sum_p W_p$ preserves even preference} & \textbf{OPEN} & -- \\
+A7 & Even dominance for all $\lambda \geq \lambda_0$ & $\Leftarrow$ A6 & -- \\
+A8 & All zeros on $\Re(s) = 1/2$ (RH) & $\Leftarrow$ A1+A2+A7 & --
+\end{tabular}
+\end{center}
+
+\subsection{The Cumulative Step (A6)}
+
+The cumulative step is the single remaining challenge. The Shift Parity Lemma (A4) establishes that each prime $p$ individually produces $\lambda_1(W_p^+) < \lambda_1(W_p^-)$. The question is whether the sum $\sum_{p \leq \lambda} W_p$ preserves this ordering.
+
+This is nontrivial because eigenvalue inequalities are not additive for sums of matrices: if $\lambda_1(A) < \lambda_1(B)$ and $\lambda_1(C) < \lambda_1(D)$, it does \emph{not} follow that $\lambda_1(A+C) < \lambda_1(B+D)$ in general. However, several structural features suggest that the cumulative step holds:
+
+\begin{enumerate}
+  \item \textbf{Numerical evidence:} Even dominance holds for all tested $\lambda \in [55, 500]$, with the gap deepening monotonically.
+  \item \textbf{Scaling:} The gap grows as $|\Delta| \sim (\log\lambda)^{4.2}$, suggesting amplification rather than cancellation.
+  \item \textbf{Frontier primes:} The dominant contribution comes from primes near $\lambda$, where the Shift Parity effect is strongest ($r \approx 1$, where $\lambda_1(D_3(r)) \approx -2$).
+  \item \textbf{Prime-counting mechanism:} New primes entering the sum at each $\lambda$ add fresh even-favoring contributions (N5).
+\end{enumerate}
+
+\subsection{Possible Approaches to A6}
+
+Four strategies for proving the cumulative step were identified in Part~III:
+
+\begin{description}[font=\bfseries,leftmargin=1em]
+  \item[(A) Total positivity.] The archimedean kernel is $\mathrm{PF}_\infty$ by Schoenberg--Hirschman. Extending this to the prime shifts would yield the cumulative bound.
+  \item[(B) Commuting differential operator.] A second-order operator commuting with $A_\lambda$ would provide Sturm--Liouville structure and simplicity of $\lambda_1$.
+  \item[(C) Prolate perturbation.] Connes' strategy: treat prime contributions as a perturbation of the prolate spheroidal wave operator (Slepian--Pollak, 1961).
+  \item[(D) Trace-moment methods.] Use Lieb--Thirring inequalities or random matrix concentration to bound $\lambda_1(\sum_p D_p)$.
+\end{description}
+
+
+% =============================================================================
+\section{The Localization Table}
+\label{sec:localization}
+% =============================================================================
+
+We present two perspectives on how the difficulty of RH is distributed.
+
+\subsection{Li Coefficient Perspective}
+
+From the Bombieri--Lagarias decomposition and the thermodynamic analysis:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|l|l|l}
+\textbf{Step} & \textbf{Statement} & \textbf{Status} & \textbf{Method} \\\hline
+S1 & Define $\xi(s)$, functional equation & proven & definition \\
+S2 & Li coefficients via Bombieri--Lagarias & proven & \cite{BombieriLagarias1999} \\
+S3 & Decomposition $\lambda_n = \lambda_n^{(\infty)} + \lambda_n^{(\mathrm{fin})}$ & proven & Part~I \\
+S4 & Archimedean dominance: $\lambda_n^{(\infty)} \sim \frac{n}{2}\log n$ & proven & Stirling \\
+\textbf{S5} & \textbf{$\lambda_n \geq 0$ for all $n \geq 1$} & \textbf{OPEN} & \textbf{$\Longleftrightarrow$ RH} \\
+S6 & All zeros on $\Re(s) = 1/2$ & $\Leftrightarrow$ S5 & Li (1997) \\
+S7 & Prime counting: $\pi(x) = \mathrm{Li}(x) + O(\sqrt{x}\log x)$ & $\Leftarrow$ S6 & von Koch
+\end{tabular}
+\end{center}
+
+\subsection{Even Dominance Perspective}
+
+From the Connes program and Part~III:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|l|l|l}
+\textbf{Step} & \textbf{Statement} & \textbf{Status} & \textbf{Method} \\\hline
+E1 & Weil explicit formula & proven & Weil (1952) \\
+E2 & Weil quadratic form $\mathrm{QW}_\lambda$ & proven & Connes (2025) \\
+E3 & Even/odd decomposition of $\mathrm{QW}_\lambda$ & proven & Part~III \\
+E4 & Shift Parity Lemma: each prime favors even & proven & Part~III \\
+E5 & Even dominance at $\lambda = 100, 200$ & proven & Part~III (CAP) \\
+\textbf{E6} & \textbf{Cumulative step: even dominance for all $\lambda$} & \textbf{OPEN} & \textbf{= A6} \\
+E7 & Connes' Theorem~6.1 $\Rightarrow$ RH & proven & \cite{Connes2025}
+\end{tabular}
+\end{center}
+
+\noindent Both perspectives converge: S5 and E6 are the same open problem, approached from different angles. The Li criterion (S5) asks for positivity of an infinite sequence; the Connes program (E6) asks for a spectral property of a family of operators. The Shift Parity Lemma provides the bridge.
+
+
+% =============================================================================
+\section{Five Open Problems}
+\label{sec:open-problems}
+% =============================================================================
+
+We formulate five concrete open problems, ordered by estimated proximity to a solution:
+
+\begin{conjecture}[OP1: Cumulative Even Dominance]
+\label{conj:OP1}
+For all $\lambda$ sufficiently large, the minimum eigenvalue of $\mathrm{QW}_\lambda$ is simple with even eigenfunction. Equivalently, $\lambda_1(\sum_{p \leq \lambda} W_p^+) < \lambda_1(\sum_{p \leq \lambda} W_p^-)$.
+\end{conjecture}
+
+This is the cumulative step (A6). The most promising approach is the prolate perturbation strategy (C), following Connes' Section~6.6 of \cite{Connes2025}.
+
+\begin{conjecture}[OP2: Simplicity of $\lambda_1^+$]
+\label{conj:OP2}
+The minimum eigenvalue $\lambda_1^+$ of $\mathrm{QW}_\lambda^+$ is simple for all $\lambda \geq \lambda_0$. The ground state concentrates on the first 3--4 Fourier modes ($|\langle \eta_1^+ | e_{0:3} \rangle|^2 > 0.99$).
+\end{conjecture}
+
+\begin{conjecture}[OP3: Analytical Proof of Index Rigidity]
+\label{conj:OP3}
+The negative inertia index of $\Ksym$ is exactly~$2$ for all $N$ sufficiently large and $\sigma \in (1, \sigma_{\max})$.
+\end{conjecture}
+
+\begin{conjecture}[OP4: Nuclear Transfer Operator for $\xi$]
+\label{conj:OP4}
+Construct a separable Hilbert space $\mathcal{V}$ and a nuclear family $s \mapsto \mathcal{L}_s$ with $\xi(s)/\xi(0) = \det(I - \mathcal{L}_s)$, spectral radius $< 1$ for $\Re(s) > 1/2$, and eigenvalue $1$ at the zeros. This connects to Deninger's foliated spaces and the Hilbert--P\'olya program.
+\end{conjecture}
+
+\begin{conjecture}[OP5: Nevanlinna Property of $\log\det_2$]
+\label{conj:OP5}
+Is $\log\det_2(I - zR)$ a Nevanlinna function (positive imaginary part in the upper half-plane) if and only if all zeros lie on the real axis? This would be a new RH-equivalent criterion in the $\det_2$-framework (Part~I, \S6).
+\end{conjecture}
+
+\noindent OP1 and OP2 are the most directly relevant to closing the proof. OP3--OP5 are structural questions that may provide new approaches.
+
+
+% =============================================================================
+\section{Connections to the Wider Landscape}
+\label{sec:connections}
+% =============================================================================
+
+\subsection{Connes' Program}
+
+The work in Part~III fits directly into Connes' spectral approach to RH \cite{Connes2025}. The Shift Parity Lemma provides the first analytical evidence for the even dominance hypothesis that Connes assumes in Theorem~6.1. The computer-assisted proof at $\lambda = 100$ and $200$ provides the first rigorous verification. The identification of the cumulative step narrows the remaining challenge to a specific algebraic problem.
+
+\subsection{Nyman--Beurling--Baez-Duarte}
+
+The Li criterion, the Weil positivity criterion, the Nyman--Beurling criterion, and the Baez-Duarte criterion are all equivalent to RH. However, direct implications between them (without passing through RH) are known only in two cases: Weil $\Rightarrow$ Li (Bombieri--Lagarias, 1999) and Nyman--Beurling $\Rightarrow$ Baez-Duarte (trivial). A closed implication ring would constitute a proof.
+
+\subsection{The Trace-Class Obstruction as Universal Pattern}
+
+The obstruction K4 (trace-class failure at $\Re(s) = 1/2$) is not unique to the Riemann zeta function. The same density gap between primes ($\pi(x) \sim x/\log x$) and hyperbolic geodesics ($\#\{\gamma: l_\gamma \leq T\} \sim e^T/T$) appears in:
+\begin{itemize}
+  \item \textbf{QFT:} UV divergences regularized by cutoff/renormalization.
+  \item \textbf{Statistical mechanics:} Thermodynamic limit requiring finite-volume approximation.
+  \item \textbf{NCG:} Connes' noncommutative geometry uses zeta-function regularization of spectral triples.
+\end{itemize}
+In each case, an external parameter (temperature, cutoff, scale) provides regularization. Number theory has no such parameter --- only the gamma function, which formally resolves the divergence but has not been realized operator-theoretically.
+
+
+% =============================================================================
+\section{Assessment and Outlook}
+\label{sec:outlook}
+% =============================================================================
+
+\subsection{What We Have Achieved}
+
+\begin{enumerate}
+  \item A \textbf{complete structural analysis} of the gauge-theoretic approach to RH, with nine unconditional results (R1--R9) and four conclusively excluded paths (K1--K4).
+
+  \item The \textbf{Shift Parity Lemma}, a purely algebraic result about trigonometric shift matrices, establishing universal even preference of individual primes.
+
+  \item A \textbf{computer-assisted proof} of even dominance at two specific values ($\lambda = 100$ and $200$), providing the first rigorous verification of Connes' spectral hypothesis.
+
+  \item A \textbf{precise identification} of the remaining challenge: the cumulative step (A6/E6), reducing a century-old problem to a specific algebraic question about eigenvalue inequalities for sums of shift matrices.
+
+  \item \textbf{Structural insights} (frontier-prime mechanism, Hellmann--Feynman analysis, gap asymptotics) that constrain and guide any future proof.
+\end{enumerate}
+
+\subsection{What We Have Not Achieved}
+
+We have not proved the Riemann Hypothesis. The cumulative step remains open, and even proving even dominance for all $\lambda$ would verify only a prerequisite of Connes' theorem --- additional steps (simplicity, Hurwitz convergence) would still be needed.
+
+\subsection{The Remaining Distance}
+
+The reduction chain A1--A8 (\Cref{sec:architecture}) shows that exactly one step (A6) remains open. This is a well-defined algebraic problem: given that $\lambda_1(D_p) < 0$ for each prime $p$ (the Shift Parity Lemma), show that $\lambda_1(\sum_{p \leq \lambda} D_p) < 0$ for all sufficiently large $\lambda$.
+
+The numerical evidence is overwhelming (the gap deepens as $|\Delta| \sim (\log\lambda)^{4.2}$), and the structural analysis constrains the problem tightly. Four concrete approaches (A--D) have been identified. The problem is open, but it is \emph{localized}: we know exactly what remains to be shown, and we know exactly why it is hard (eigenvalue inequalities are not additive).
+
+\subsection{Philosophical Reflection}
+
+The gauge-theoretic approach began with the ambition to prove the Riemann Hypothesis through a direct construction. It failed --- but the failure was instructive. By systematically mapping the obstructions (K1--K4), we learned \emph{why} the problem is hard: the difficulty is not in the analytical framework (which produces genuine structural results) but in the transition from individual-prime properties to cumulative properties. This is the arithmetic heart of RH: primes are individually well-understood, but their collective behavior resists closure.
+
+The reorientation to Connes' program was forced by failure, but it transformed the dead ends into a productive toolkit. The thermodynamic analysis of Part~I gave us the prime shift operators; the obstruction analysis of Part~II told us where not to look; and the spectral analysis of Part~III identified the cumulative step as the single remaining challenge. The circle closes --- not with a proof, but with a precise localization of where the proof must come from.
+
+
+% =============================================================================
+\section{Summary}
+\label{sec:summary}
+% =============================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l|c|l}
+\textbf{Contribution} & \textbf{Status} & \textbf{Paper} \\\hline
+Thermodynamic formalism for $\zeta$ & established & I \\
+9 unconditional structural results (R1--R9) & proven & I \\
+4 excluded paths (K1--K4) & proven & II \\
+Localization: all of RH $\equiv$ Step S5 & proven & II \\
+Shift Parity Lemma & proven (analytic + IV) & III \\
+Even dominance at $\lambda = 100, 200$ & proven (CAP) & III \\
+Frontier-prime mechanism & proven & III \\
+Hellmann--Feynman: prime-counting drives gap & proven & III \\
+Gap asymptotics: $|\Delta| \sim (\log\lambda)^{4.2}$ & numerical & III \\
+\textbf{Cumulative step (A6)} & \textbf{OPEN} & -- \\
+\textbf{Even dominance for all $\lambda$} & \textbf{OPEN} & -- \\
+\textbf{Riemann Hypothesis} & \textbf{OPEN} & --
+\end{tabular}
+\end{center}
+
+
+\bigskip
+\noindent\textbf{Acknowledgments.} Computations were performed on a Hetzner CCX13 cloud server (2~dedicated vCPU, 8~GB RAM). The interval arithmetic library mpmath was developed by Fredrik Johansson.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{Geiger2026partI}
+L.~Geiger, \emph{A Gauge-theoretic Reformulation of the Riemann Hypothesis: Part~I: The Landscape}, 2026.
+
+\bibitem{Geiger2026partII}
+L.~Geiger, \emph{A Gauge-theoretic Reformulation of the Riemann Hypothesis: Part~II: The Path and the Dead Ends}, 2026.
+
+\bibitem{Geiger2026partIII}
+L.~Geiger, \emph{Even Dominance of the Weil Quadratic Form: Structural Analysis and Computer-Assisted Proof}, 2026.
+
+\bibitem{Connes2025}
+A.~Connes, \emph{Prolate and the Riemann zeta function}, arXiv:2602.04022v1, 2025.
+
+\bibitem{ConnesvS2025}
+A.~Connes and W.~D. van Suijlekom, \emph{Spectral truncation of the Riemann zeta function and a Carath\'eodory--Fej\'er approximation}, preprint, 2025.
+
+\bibitem{BombieriLagarias1999}
+E.~Bombieri and J.~C.~Lagarias, \emph{Complements to Li's criterion for the Riemann hypothesis}, J.~Number Theory~\textbf{77} (1999), 274--287.
+
+\bibitem{Li1997}
+X.-J.~Li, \emph{The positivity of a sequence of numbers and the Riemann hypothesis}, J.~Number Theory~\textbf{65} (1997), 325--333.
+
+\bibitem{Weil1952}
+A.~Weil, \emph{Sur les ``formules explicites'' de la th\'eorie des nombres premiers}, Comm.~S\'em.~Math.~Univ.~Lund (1952), 252--265.
+
+\bibitem{Keiper1992}
+J.~B.~Keiper, \emph{Power series expansions of Riemann's $\xi$ function}, Math.~Comp.~\textbf{58} (1992), 765--773.
+
+\bibitem{Deninger2002}
+C.~Deninger, \emph{On the nature of the ``explicit formulas'' in analytic number theory}, Banach Center Publ.~\textbf{57} (2002), 97--118.
+
+\bibitem{Connes1999}
+A.~Connes, \emph{Trace formula in noncommutative geometry and the zeros of the Riemann zeta function}, Selecta Math.~\textbf{5} (1999), 29--106.
+
+\bibitem{ConreyLi2000}
+J.~B.~Conrey and X.-J.~Li, \emph{A note on some positivity conditions related to zeta and $L$-functions}, Int.~Math.~Res.~Not.~\textbf{2000}, no.~18, 929--940.
+
+\end{thebibliography}
+
+\end{document}

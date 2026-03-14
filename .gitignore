@@ -24,14 +24,16 @@ _partners/
 CORE.txt
 removed_sections/
 
+# Server logs / intermediate results
+scripts/*.log
+scripts/*.json
+scripts/_results/
+scripts/_exploration/
+
 # Python
 __pycache__/
 *.pyc
 .venv/
-
-# Server logs / intermediate results
-scripts/*.log
-scripts/*.json
 
 # OS
 .DS_Store
