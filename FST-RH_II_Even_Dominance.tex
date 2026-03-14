@@ -1444,15 +1444,34 @@ satisfies $\rho(\lambda) < 1$ for all tested $\lambda$ (from $\rho \approx 0.63$
 Equation~\eqref{eq:direct-decomp} is the algebraic identity $a/x - b/y = (a-b)/x + b(1/x - 1/y)$. The sign of $1/g_j^- - 1/g_j^+$ follows from $g_j^- < g_j^+$, which holds because $W_{jj}^- - W_{00}^- < W_{jj}^+ - W_{11}^+$ (the even leading diagonal $W_{11}^+$ is more negative than the odd leading diagonal $W_{00}^-$, while the higher diagonals $W_{jj}$ are approximately parity-neutral).
 \end{proof}
 
+\begin{remark}[The gap as a second-order perturbative effect]
+\label{rem:gap-source}
+Laplace asymptotic analysis of the prime-sum matrix entries reveals the precise origin of the gap. Define the normalized matrix $M_L \coloneqq W / \sqrt{\lambda}$. The Laplace expansion of the Stieltjes integral gives
+\[
+  M_L = M_\infty - \frac{4}{L}\,F' + O(1/L^2),
+\]
+where $M_\infty = 2 \cdot \mathrm{diag}(f_{00}(1), f_{11}(1), \ldots)$ with $f_{nn}(1) = \pm 1/2$, and $F'_{ij} = f'_{ij}(1)$ (the endpoint derivative of the overlap profile). For the $4 \times 4$ blocks: $M_\infty^{\cos} = \mathrm{diag}(+1,-1,+1,-1)$ and $M_\infty^{\sin} = \mathrm{diag}(-1,+1,-1,+1)$.
+
+Both sectors have $\lambda_1(M_\infty) = -1$ with \emph{multiplicity~$2$}. Degenerate perturbation theory requires diagonalizing $F'$ within each $\lambda_1$-eigenspace:
+\begin{itemize}
+  \item \textbf{Cos sector} ($\lambda_1$-eigenspace $= \{e_1, e_3\}$): the projected perturbation has eigenvalues $0$ and $2$, with $\min = 0$.
+  \item \textbf{Sin sector} ($\lambda_1$-eigenspace $= \{e_0, e_2\}$): the projected perturbation has eigenvalues $\approx 0$ and $\approx 0$, with $\min \approx 0$.
+\end{itemize}
+Both sectors have min-eigenvalue $\approx 0$ at first order: \textbf{no gap at $O(1/L)$}.
+
+The gap arises at \emph{second order}: from the coupling of the $\lambda_1$-eigenspace to the $\lambda_1 = +1$ eigenspace, which is precisely the resolvent-damped energy $E_{\sin}, E_{\cos}$ defined in \Cref{def:resolvent-energies}. The gap asymmetry ($g_{\sin} \neq g_{\cos}$, \Cref{rem:gap-asymmetry}) is the mechanism that makes $E_{\sin} > E_{\cos}$, producing even dominance.
+\end{remark}
+
 \begin{remark}[Status of M1]
 \label{rem:M1-status}
 The certified gap $\mathrm{cert\_gap}(\lambda) < 0$ is \emph{rigorously verified} for $30$ values of $\lambda$ up to $640{,}000$. The analytical framework establishes:
 \begin{itemize}
+  \item The gap is a \emph{second-order perturbative effect} in the $1/L$ expansion (\Cref{rem:gap-source}): it vanishes at both zeroth and first order.
   \item The numerator difference $|B_j^-|^2 - |B_j^+|^2$ is controlled by the Leading-Mode Cancellation (\Cref{lem:leading-cancel}).
-  \item The gap ratio $g_j^-/g_j^+$ is bounded away from zero (both gaps grow as $O(\sqrt{\lambda})$).
-  \item The ratio $\rho(\lambda)$ decreases monotonically from $0.63$ to $0.28$ over $\lambda = 100$ to $3000$.
+  \item The gap ratio $g_j^-/g_j^+$ is bounded away from zero (both gaps grow as $O(\sqrt{\lambda})$), but the ratio is $\approx 0.15$--$0.39$, not close to unity.
+  \item The ratio $\rho(\lambda) = (E_{\sin} - E_{\cos})/D$ decreases monotonically from $0.63$ to $0.14$ over $\lambda = 100$ to $3000$.
 \end{itemize}
-The remaining analytical step is to prove that $\rho(\lambda) < 1$ for all $\lambda \geq \lambda_0$. This requires a quantitative bound on the second term in~\eqref{eq:direct-decomp} that accounts for the gap asymmetry. The numerical evidence strongly suggests $\rho(\lambda) \to 0$, but a rigorous proof of this convergence remains open.
+The remaining analytical step is to prove $\rho(\lambda) < 1$ for all $\lambda \geq \lambda_0$. This is a \emph{second-order} spectral perturbation problem: the $1/L$-expansion of the resolvent-damped energies in the degenerate $\lambda_1 = -1$ eigenspace. The numerical evidence ($30$ certificates, monotone $\rho$) is strong, but a rigorous proof remains open.
 \end{remark}
 
 
