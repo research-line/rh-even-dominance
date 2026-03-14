@@ -361,17 +361,17 @@ if __name__ == "__main__":
         proved = cert_gap < 0
 
         cert = {
-            'lambda': lam,
-            'L': L,
-            'n_primes': n_primes,
-            'upper_cos': upper_cos,
-            'lower_sin': lower_sin,
-            'cert_gap': cert_gap,
-            'proved': proved,
+            'lambda': int(lam),
+            'L': float(L),
+            'n_primes': int(n_primes),
+            'upper_cos': float(upper_cos),
+            'lower_sin': float(lower_sin),
+            'cert_gap': float(cert_gap),
+            'proved': bool(proved),
             'cos_info': {k: float(v) for k, v in cos_info.items()},
             'sin_info': {k: float(v) for k, v in sin_info.items()},
-            'time_cos': t_cos,
-            'time_sin': t_sin,
+            'time_cos': float(t_cos),
+            'time_sin': float(t_sin),
         }
         certificates.append(cert)
 
