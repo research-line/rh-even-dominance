@@ -34,7 +34,7 @@
 \maketitle
 
 \begin{abstract}
-This is the second paper in a three-part series (Part~I: Foundations and Obstructions \cite{Geiger2026partI}; Part~III: Conclusio \cite{Geiger2026partIII}). We address the open problem identified in Connes' 2025 survey \cite{Connes2025}: whether the minimum eigenvalue of the Weil quadratic form~$\mathrm{QW}_\lambda$ is simple with even eigenfunction. We establish three main results. First, the \emph{Shift Parity Lemma}: the difference matrix between even and odd shift operators has strictly negative minimum eigenvalue for all $N \geq 3$ modes and all normalized shifts $r \in (0,2)$, implying that every prime individually favors even eigenfunctions. Second, we rigorously certify even dominance via computer-assisted proof using interval arithmetic for $29$ values of $\lambda$ from $100$ to $320{,}000$, with certified gaps growing monotonically as~$\sim\!\sqrt{\lambda}$. Third, we prove the \emph{Leading-Mode Cancellation Lemma}: the overlap differences between even and odd sectors cancel pairwise with exact constant $c = 2 + \sqrt{2}$, yielding $(E_{\sin} - E_{\cos})/D(\lambda) = O(1/\log\lambda) \to 0$. This resolvent-damped framework reduces the remaining analytical step (M1$''$) to classical Fourier analysis and the Prime Number Theorem.
+This is the second paper in a three-part series (Part~I: Foundations and Obstructions \cite{Geiger2026partI}; Part~III: Conclusio \cite{Geiger2026partIII}). We address the open problem identified in Connes' 2025 survey \cite{Connes2025}: whether the minimum eigenvalue of the Weil quadratic form~$\mathrm{QW}_\lambda$ is simple with even eigenfunction. We establish three main results. First, the \emph{Shift Parity Lemma}: the difference matrix between even and odd shift operators has strictly negative minimum eigenvalue for all $N \geq 3$ modes and all normalized shifts $r \in (0,2)$, implying that every prime individually favors even eigenfunctions. Second, we rigorously certify even dominance via computer-assisted proof using interval arithmetic for $30$ values of $\lambda$ from $100$ to $640{,}000$, with certified gaps growing monotonically as~$\sim\!\sqrt{\lambda}$. Third, we prove the \emph{Leading-Mode Cancellation Lemma}: the overlap differences between even and odd sectors cancel pairwise with exact constant $c = 2 + \sqrt{2}$, yielding $(E_{\sin} - E_{\cos})/D(\lambda) = O(1/\log\lambda) \to 0$. This resolvent-damped framework reduces the remaining analytical step (M1$''$) to classical Fourier analysis and the Prime Number Theorem.
 \end{abstract}
 
 \noindent\textbf{MSC 2020:} 11M26, 11M36, 47A75, 65G20\\
@@ -52,7 +52,7 @@ This paper is the second in a three-part series investigating the Riemann Hypoth
 Here we develop the spectral approach in full. Following Connes' 2025 survey \cite{Connes2025}, we study the Weil quadratic form $\mathrm{QW}_\lambda$ and its even-odd decomposition. Our three main contributions are:
 \begin{enumerate}
   \item The \textbf{Shift Parity Lemma} (\Cref{sec:shift-parity}): a purely algebraic result showing that every prime individually favors even eigenfunctions, proved via closed-form trigonometric entries.
-  \item \textbf{Computer-assisted certification} (\Cref{sec:certificates}): rigorous verification of even dominance at $29$ values of $\lambda$ from $100$ to $320{,}000$ via interval arithmetic, with certified gaps growing as $\sim\!\sqrt{\lambda}$.
+  \item \textbf{Computer-assisted certification} (\Cref{sec:certificates}): rigorous verification of even dominance at $30$ values of $\lambda$ from $100$ to $640{,}000$ via interval arithmetic, with certified gaps growing as $\sim\!\sqrt{\lambda}$.
   \item The \textbf{Leading-Mode Cancellation Lemma} (\Cref{lem:leading-cancel}): the overlap differences between sectors cancel pairwise with exact constant $c = 2 + \sqrt{2}$, reducing the analytical gap (M1$''$) to Fourier analysis and the Prime Number Theorem.
 \end{enumerate}
 
@@ -134,11 +134,11 @@ $^*$\,\textit{Marginal: $|\lambda_1^+ - \lambda_1^-| < 0.05$.}
 \medskip\noindent
 \textbf{Honest assessment:}
 \begin{itemize}
-  \item For $\lambda \geq 55$: Robust even dominance with margins growing as $\sim\!\sqrt{\lambda}$. The gap reaches $|\Delta| > 0.5$ at $\lambda = 55$ and exceeds $240$ at $\lambda = 320{,}000$. Theorem~6.1 prerequisites are confirmed for $29$ values up to $\lambda = 320{,}000$.
+  \item For $\lambda \geq 55$: Robust even dominance with margins growing as $\sim\!\sqrt{\lambda}$. The gap reaches $|\Delta| > 0.5$ at $\lambda = 55$ and exceeds $338$ at $\lambda = 640{,}000$. Theorem~6.1 prerequisites are confirmed for $30$ values up to $\lambda = 640{,}000$.
   \item For $25 \leq \lambda \leq 50$: Marginal regime ($|\Delta| < 0.02$). The even/odd ordering oscillates with $\lambda$ at $N = 60$: $\lambda = 25, 30, 40, 50$ show even dominance while $\lambda = 28, 35, 45$ show odd dominance. Neither sector robustly dominates.
   \item For $\lambda = 10$ and $\lambda = 20$: The odd sector has the lower minimum. Theorem~6.1 is \emph{not directly applicable} in this regime.
   \item \textbf{Non-monotone transition:} The crossover from odd to even ground state is not sharp but spreads over $\lambda \in [25, 55]$. For $\lambda \geq 55$, even dominance is robust and the gap grows without bound.
-  \item \textbf{Computer-assisted proof (interval arithmetic):} Even dominance has been rigorously certified for $29$ values of $\lambda$ from $100$ to $320{,}000$ using interval arithmetic (mpmath.iv, 50~digits) for the even block and float64 with rigorous Cauchy tail bounds for the odd block. The certified gap grows monotonically as $\sim\!\sqrt{\lambda}$, from $-2.25$ at $\lambda = 100$ to $-241.75$ at $\lambda = 320{,}000$ (see \Cref{sec:certificates}).
+  \item \textbf{Computer-assisted proof (interval arithmetic):} Even dominance has been rigorously certified for $30$ values of $\lambda$ from $100$ to $640{,}000$ using interval arithmetic (mpmath.iv, 50~digits) for the even block and float64 with rigorous Cauchy tail bounds for the odd block. The certified gap grows monotonically as $\sim\!\sqrt{\lambda}$, from $-2.25$ at $\lambda = 100$ to $-338.28$ at $\lambda = 640{,}000$ (see \Cref{sec:certificates}).
 \end{itemize}
 
 \subsection{Discussion}
@@ -155,9 +155,9 @@ Three structural features emerge:
 \begin{enumerate}
   \item \textbf{Diffuse crossover:} At $N=60$, the crossover from odd to even dominance spreads over $\lambda \in [25, 55]$, with oscillating sign and $|\Delta| < 0.02$. At $\lambda \geq 55$, even dominance sets in robustly ($|\Delta| > 0.5$) and grows without reversal through $\lambda = 500$.
 
-  \item \textbf{Growing even-sector gap:} For $\lambda \geq 55$, the gap $\Delta(\lambda) = \lambda_1^+ - \lambda_1^-$ grows in magnitude, reaching $\Delta \approx -7.6$ at $\lambda = 500$ and $\Delta \approx -242$ at $\lambda = 320{,}000$ (see \Cref{sec:gap-asymptotics,sec:certificates}). The growth scales as $\sim\!\sqrt{\lambda}$ (analytically, via PNT; the earlier fit $\sim\!(\log\lambda)^{4.2}$ was based on a limited range).
+  \item \textbf{Growing even-sector gap:} For $\lambda \geq 55$, the gap $\Delta(\lambda) = \lambda_1^+ - \lambda_1^-$ grows in magnitude, reaching $\Delta \approx -7.6$ at $\lambda = 500$ and $\Delta \approx -338$ at $\lambda = 640{,}000$ (see \Cref{sec:gap-asymptotics,sec:certificates}). The growth scales as $\sim\!\sqrt{\lambda}$ (analytically, via PNT; the earlier fit $\sim\!(\log\lambda)^{4.2}$ was based on a limited range).
 
-  \item \textbf{Rigorous certification:} For $29$ values of $\lambda$ from $100$ to $320{,}000$, even dominance has been certified by computer-assisted proof using interval arithmetic and Cauchy tail bounds (see \Cref{sec:certificates}).
+  \item \textbf{Rigorous certification:} For $30$ values of $\lambda$ from $100$ to $640{,}000$, even dominance has been certified by computer-assisted proof using interval arithmetic and Cauchy tail bounds (see \Cref{sec:certificates}).
 \end{enumerate}
 
 \textbf{Implication for Connes' program:} Connes' strategy (Sections~6.4--6.6 of \cite{Connes2025}) uses Hurwitz's theorem to transfer the real-zeros property from the truncated Fourier transforms $\hat{k}_\lambda$ to the Riemann $\Xi$-function in the limit $\lambda \to \infty$. Crucially, Hurwitz's theorem requires only a \emph{sequence} $\lambda_n \to \infty$ along which the prerequisites hold---not all $\lambda > 1$. Therefore, the odd-dominant regime for small $\lambda$ (around $\lambda \approx 10$--$30$) is \emph{not} an obstruction: it suffices that even dominance holds for all $\lambda \geq \lambda_0$ for some explicit $\lambda_0$.
@@ -348,7 +348,7 @@ The results of this section provide the following reduction:
   \item \textbf{Conclusion:} Even dominance of $\mathrm{QW}_\lambda$ follows from the cumulative prime effect.
 \end{enumerate}
 
-\noindent The remaining gap for a complete proof is step~(3): showing that the cumulative effect of summing $W_p$ over all $p \leq \lambda$ preserves (and amplifies) the individual even preferences. This is not automatic because eigenvalue inequalities are not additive for sums of matrices. However, the numerical evidence is overwhelming: the cumulative gap deepens monotonically for $\lambda \geq 55$ and scales as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$ across $3.5$ orders of magnitude ($29$ certified values, $\lambda = 100$ to $320{,}000$).
+\noindent The remaining gap for a complete proof is step~(3): showing that the cumulative effect of summing $W_p$ over all $p \leq \lambda$ preserves (and amplifies) the individual even preferences. This is not automatic because eigenvalue inequalities are not additive for sums of matrices. However, the numerical evidence is overwhelming: the cumulative gap deepens monotonically for $\lambda \geq 55$ and scales as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$ across nearly $4$ orders of magnitude ($30$ certified values, $\lambda = 100$ to $640{,}000$).
 
 \subsection{Possible Approaches to a Formal Proof}
 
@@ -461,7 +461,7 @@ $\lambda$ & $k$ & $\lambda_1(\mathrm{QW}^+[{:}k])$ & $\lambda_1(\mathrm{QW}^-)$ 
 \end{tabular}
 \end{center}
 
-Moreover, $\lambda_1(\mathrm{QW}_\lambda^-[{:}N])$ remains above $\lambda_1(\mathrm{QW}_\lambda^+[{:}4])$ for \emph{all} $N \leq 90$ (verified at $29$ values of $\lambda$ up to $320{,}000$), indicating that the gap is genuine and not an artifact of truncation.
+Moreover, $\lambda_1(\mathrm{QW}_\lambda^-[{:}N])$ remains above $\lambda_1(\mathrm{QW}_\lambda^+[{:}4])$ for \emph{all} $N \leq 90$ (verified at $30$ values of $\lambda$ up to $640{,}000$), indicating that the gap is genuine and not an artifact of truncation.
 
 \label{sec:computer-proof}
 \subsubsection{Computer-Assisted Proof via Interval Arithmetic}
@@ -529,7 +529,7 @@ The Hellmann--Feynman analysis (\Cref{tab:hf-results}) provides a structural exp
 \label{sec:weighted-compactness}
 % =============================================================================
 
-The preceding sections establish even dominance for finitely many $\lambda$ (rigorously for $29$ values up to $\lambda = 320{,}000$; numerically for all $\lambda \geq 55$). To close the proof for \emph{all} large $\lambda$, we outline a functional-analytic strategy based on weighted compactness that avoids the cumulative algebraic step entirely.
+The preceding sections establish even dominance for finitely many $\lambda$ (rigorously for $30$ values up to $\lambda = 640{,}000$; numerically for all $\lambda \geq 55$). To close the proof for \emph{all} large $\lambda$, we outline a functional-analytic strategy based on weighted compactness that avoids the cumulative algebraic step entirely.
 
 \subsection{Setup and Rescaling}
 
@@ -646,7 +646,7 @@ For Connes' Theorem~6.1, we need locally uniform convergence of the Mellin trans
 There exists $\alpha > \tfrac{1}{2}$ such that $\sup_\lambda \int |\phi_\lambda(t)|^2\,e^{2\alpha|t|}\,dt < \infty$. Consequently, $\{F_\lambda\}$ converges locally uniformly on the strip $\{z : |\operatorname{Re} z| < \alpha\}$.
 \end{conjecture}
 
-If polynomial weights suffice for precompactness (\Cref{conj:sobolev}), the upgrade to exponential decay is non-trivial and constitutes the deepest analytical ingredient. The support constraint $\phi_\lambda|_{[-L,L]^c} = 0$ gives $\int |\phi_\lambda|^2 e^{2\alpha|t|} dt \leq e^{2\alpha L}\|\phi_\lambda\|^2 = \lambda^{2\alpha}$, which is bounded for fixed $\lambda$ but grows with $\lambda$. A sharper bound requires the eigenfunction to decay \emph{within} its support---i.e., $|\phi_\lambda(t)|$ must be small near $|t| \approx L$. This is precisely the mass concentration observed in our numerical experiments (\S\ref{sec:connes}).
+If polynomial weights suffice for precompactness (the uniform Sobolev bound above), the upgrade to exponential decay is non-trivial and constitutes the deepest analytical ingredient. The support constraint $\phi_\lambda|_{[-L,L]^c} = 0$ gives $\int |\phi_\lambda|^2 e^{2\alpha|t|} dt \leq e^{2\alpha L}\|\phi_\lambda\|^2 = \lambda^{2\alpha}$, which is bounded for fixed $\lambda$ but grows with $\lambda$. A sharper bound requires the eigenfunction to decay \emph{within} its support---i.e., $|\phi_\lambda(t)|$ must be small near $|t| \approx L$. This is precisely the mass concentration observed in our numerical experiments (\S\ref{sec:connes}).
 
 \subsection{Numerical Verification}
 \label{sec:wc-numerics}
@@ -869,7 +869,7 @@ The value of the program lies in:
   \item The \emph{structural results} (R1--R9), which add to the toolkit of unconditional statements about the Li coefficients.
   \item The \emph{localization table} (see Part~I \cite{Geiger2026partI} and Part~III \cite{Geiger2026partIII}), which makes the logical structure transparent.
   \item The \emph{formulation of concrete open problems} (OP1--OP5), which may guide future work.
-  \item \emph{Numerical and computer-assisted evidence for Connes' Theorem~6.1} (\Cref{sec:connes,sec:certificates}): even dominance is rigorously certified for $29$ values of $\lambda$ from $100$ to $320{,}000$, with margins growing as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$. The crossover from odd to even ground state spreads over $\lambda \in [25,55]$; this is not an obstruction to Connes' asymptotic Hurwitz program (which requires even dominance only along a sequence $\lambda_n \to \infty$).
+  \item \emph{Numerical and computer-assisted evidence for Connes' Theorem~6.1} (\Cref{sec:connes,sec:certificates}): even dominance is rigorously certified for $30$ values of $\lambda$ from $100$ to $640{,}000$, with margins growing as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$. The crossover from odd to even ground state spreads over $\lambda \in [25,55]$; this is not an obstruction to Connes' asymptotic Hurwitz program (which requires even dominance only along a sequence $\lambda_n \to \infty$).
   \item A \emph{decomposition analysis} revealing that even dominance is driven entirely by prime contributions (not the archimedean kernel), via constructive interference in the cosine basis. This structural insight narrows the scope of any future formal proof to the prime shift operators alone.
   \item A \emph{prolate eigenvalue dominance} result: the prime shift operator $P_\lambda$ restricted to even functions has $5$--$8\times$ larger dominant eigenvalue than in the odd sector, in direct analogy with Slepian's theorem for prolate spheroidal wave functions.
   \item The \emph{Shift Parity Lemma} (\Cref{thm:shift-parity}): the difference matrix $D_N(r)$ between the even- and odd-sector shift operators satisfies $\lambda_1(D_N(r)) < 0$ for all $N \geq 3$ and $r \in (0,2)$. This is a purely algebraic statement about trigonometric matrices, independent of number theory, with a two-case analytic proof via explicit closed-form entries (\Cref{prop:closed-form}).
@@ -1343,11 +1343,12 @@ $\lambda$ & $\#$primes & $\ell_{\cos}^{(4)}$ & $\ell_{\sin}^{(N_0)}$ & cert\_gap
 10\,000 & 1\,229 & $-216.22$ & $-173.85$ & $-42.37$ \\
 40\,000 & 4\,203 & $-495.69$ & $-409.15$ & $-86.54$ \\
 160\,000 & 14\,683 & $-853.22$ & $-680.67$ & $-172.35$ \\
-320\,000 & 27\,608 & $-1220.97$ & $-979.00$ & $-241.75$
+320\,000 & 27\,608 & $-1220.97$ & $-979.00$ & $-241.75$ \\
+640\,000 & 52\,074 & $-1742.93$ & $-1404.65$ & $-338.28$
 \end{tabular}
 \end{center}
 
-\noindent All $29$ tested values of $\lambda \in [100, 320\,000]$ yield $\mathrm{cert\_gap} < 0$, with $|\mathrm{cert\_gap}|$ growing monotonically as $\sim\!\sqrt{\lambda}$. This constitutes computer-assisted verification of even dominance across $3.5$ orders of magnitude in~$\lambda$, consistent with the prediction of \Cref{thm:meta}.
+\noindent All $30$ tested values of $\lambda \in [100, 640\,000]$ yield $\mathrm{cert\_gap} < 0$, with $|\mathrm{cert\_gap}|$ growing monotonically as $\sim\!\sqrt{\lambda}$. This constitutes computer-assisted verification of even dominance across nearly $4$ orders of magnitude in~$\lambda$, consistent with the prediction of \Cref{thm:meta}.
 
 \subsection{Analytical path to M1: leading-mode cancellation}
 \label{sec:leading-mode}

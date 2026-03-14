@@ -35,7 +35,7 @@
 \maketitle
 
 \begin{abstract}
-This final paper in a three-part series draws together the results of the preceding papers into a unified picture. We catalog the proven structural results (R1--R9), the excluded paths (K1--K4), and the new contributions: the Shift Parity Lemma, the computer-assisted proof of even dominance for $29$ values of $\lambda$ up to $320{,}000$, the resolvent-damped M1$''$ framework, and the Leading-Mode Cancellation Lemma with exact constant $c = 2 + \sqrt{2}$. We present the complete proof architecture from Connes' Theorem~6.1 through even dominance to the Riemann Hypothesis, identifying the resolvent subdominance condition as the single remaining analytical step. We formulate open problems and discuss connections to the wider landscape of analytic number theory.
+This final paper in a three-part series draws together the results of the preceding papers into a unified picture. We catalog the proven structural results (R1--R9), the excluded paths (K1--K4), and the new contributions: the Shift Parity Lemma, the computer-assisted proof of even dominance for $30$ values of $\lambda$ up to $640{,}000$, the resolvent-damped M1$''$ framework, and the Leading-Mode Cancellation Lemma with exact constant $c = 2 + \sqrt{2}$. We present the complete proof architecture from Connes' Theorem~6.1 through even dominance to the Riemann Hypothesis, identifying the resolvent subdominance condition as the single remaining analytical step. We formulate open problems and discuss connections to the wider landscape of analytic number theory.
 \end{abstract}
 
 \noindent\textbf{MSC 2020:} 11M26, 11M36, 47A75, 65G20\\
@@ -52,7 +52,7 @@ This final paper in a three-part series draws together the results of the preced
 This paper concludes a three-part investigation of the Riemann Hypothesis through gauge theory, spectral analysis, and arithmetic thermodynamics:
 \begin{description}[font=\bfseries,leftmargin=2em]
   \item[Part~I \cite{Geiger2026partI}:] Foundations and Obstructions --- structural results (R1--R9), four critical obstructions (K1--K4), reorientation to Connes' spectral program.
-  \item[Part~II \cite{Geiger2026partII}:] Even Dominance --- Shift Parity Lemma, computer-assisted proof ($29$ certificates, $\lambda$ up to $320{,}000$), resolvent-damped M1$''$ framework, Leading-Mode Cancellation ($c = 2 + \sqrt{2}$).
+  \item[Part~II \cite{Geiger2026partII}:] Even Dominance --- Shift Parity Lemma, computer-assisted proof ($30$ certificates, $\lambda$ up to $640{,}000$), resolvent-damped M1$''$ framework, Leading-Mode Cancellation ($c = 2 + \sqrt{2}$).
   \item[Part~III (this paper):] Conclusio --- synthesis, proof architecture, open problems.
 \end{description}
 
@@ -98,7 +98,7 @@ The following results are unconditional (they do not assume RH):
   \[ \lambda_1(D_N(r)) < 0, \]
   where $D_N(r) = S_N^+(r) - S_N^-(r)$ is the difference between even- and odd-sector shift matrices. Proved analytically (two-case det/Tr argument for $N=3$, monotonicity reduction for $N \geq 4$) and certified by interval arithmetic (55,000 subintervals, 60-digit precision, Gershgorin disk bounds).
 
-  \item \textbf{Computer-Assisted Proof of Even Dominance} (Part~II). For $29$ values of $\lambda$ from $100$ to $320{,}000$, even dominance is rigorously certified via interval arithmetic (mpmath.iv, 50-digit precision). The certified gap grows monotonically as $\sim\!\sqrt{\lambda}$, from $-2.25$ at $\lambda = 100$ to $-241.75$ at $\lambda = 320{,}000$. No failure in $3.5$ orders of magnitude.
+  \item \textbf{Computer-Assisted Proof of Even Dominance} (Part~II). For $30$ values of $\lambda$ from $100$ to $640{,}000$, even dominance is rigorously certified via interval arithmetic (mpmath.iv, 50-digit precision). The certified gap grows monotonically as $\sim\!\sqrt{\lambda}$, from $-2.25$ at $\lambda = 100$ to $-338.28$ at $\lambda = 640{,}000$. No failure in nearly $4$ orders of magnitude.
 
   \item \textbf{Universal Even Preference of Individual Primes} (Part~II, Corollary~2.5). For every prime $p$ with $r = \log p / \log\lambda \in (0,2)$:
   \[ \lambda_1(W_p^+) \leq \lambda_1(W_p^-) + \lambda_1(D_N(r)) < \lambda_1(W_p^-), \]
@@ -160,7 +160,7 @@ We present the logical chain from known mathematics to the Riemann Hypothesis, i
 \textbf{Step} & \textbf{Statement} & \textbf{Status} & \textbf{Source} \\\hline
 A1 & Connes' Theorem~6.1: even dominance $\Rightarrow$ zeros of $\hat{\eta}$ real & proven & \cite{Connes2025} \\
 A2 & Hurwitz: even dominance for $\lambda_n \to \infty$ suffices & proven & \cite{Connes2025} \\
-A3 & Even dominance at $29$ values, $\lambda \leq 320{,}000$ & proven & Part~II \\
+A3 & Even dominance at $30$ values, $\lambda \leq 640{,}000$ & proven & Part~II \\
 A4 & Shift Parity Lemma: each prime favors even & proven & Part~II \\
 A5 & Frontier-prime mechanism & proven & Part~II \\
 \textbf{A6} & \textbf{Cumulative step: $\sum_p W_p$ preserves even preference} & \textbf{OPEN} & -- \\
@@ -177,7 +177,7 @@ This is nontrivial because eigenvalue inequalities are not additive for sums of 
 
 \begin{enumerate}
   \item \textbf{Numerical evidence:} Even dominance holds for all tested $\lambda \in [55, 500]$, with the gap deepening monotonically.
-  \item \textbf{Scaling:} The certified gap grows as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$ (analytically, via PNT). The earlier numerical fit $|\Delta| \sim (\log\lambda)^{4.2}$ was based on a limited range $\lambda \leq 500$; the extended range ($\lambda$ up to $320{,}000$) confirms $\sqrt{\lambda}$ scaling.
+  \item \textbf{Scaling:} The certified gap grows as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$ (analytically, via PNT). The earlier numerical fit $|\Delta| \sim (\log\lambda)^{4.2}$ was based on a limited range $\lambda \leq 500$; the extended range ($\lambda$ up to $640{,}000$) confirms $\sqrt{\lambda}$ scaling.
   \item \textbf{Frontier primes:} The dominant contribution comes from primes near $\lambda$, where the Shift Parity effect is strongest ($r \approx 1$, where $\lambda_1(D_3(r)) \approx -2$).
   \item \textbf{Prime-counting mechanism:} New primes entering the sum at each $\lambda$ add fresh even-favoring contributions (N5).
 \end{enumerate}
@@ -231,7 +231,7 @@ E1 & Weil explicit formula & proven & Weil (1952) \\
 E2 & Weil quadratic form $\mathrm{QW}_\lambda$ & proven & Connes (2025) \\
 E3 & Even/odd decomposition of $\mathrm{QW}_\lambda$ & proven & Part~II \\
 E4 & Shift Parity Lemma: each prime favors even & proven & Part~II \\
-E5 & Even dominance at $29$ values, $\lambda \leq 320{,}000$ & proven & Part~II (CAP) \\
+E5 & Even dominance at $30$ values, $\lambda \leq 640{,}000$ & proven & Part~II (CAP) \\
 \textbf{E6} & \textbf{Cumulative step: even dominance for all $\lambda$} & \textbf{OPEN} & \textbf{= A6} \\
 E7 & Connes' Theorem~6.1 $\Rightarrow$ RH & proven & \cite{Connes2025}
 \end{tabular}
@@ -284,7 +284,7 @@ Is $\log\det_2(I - zR)$ a Nevanlinna function (positive imaginary part in the up
 
 \subsection{Connes' Program}
 
-The work in Part~II fits directly into Connes' spectral approach to RH \cite{Connes2025}. The Shift Parity Lemma provides the first analytical evidence for the even dominance hypothesis that Connes assumes in Theorem~6.1. The computer-assisted proof at $29$ values of $\lambda$ up to $320{,}000$ provides rigorous verification across $3.5$ orders of magnitude. The resolvent M1$''$ framework and the Leading-Mode Cancellation Lemma narrow the remaining challenge to a specific analytical problem reducible to Fourier analysis and the Prime Number Theorem.
+The work in Part~II fits directly into Connes' spectral approach to RH \cite{Connes2025}. The Shift Parity Lemma provides the first analytical evidence for the even dominance hypothesis that Connes assumes in Theorem~6.1. The computer-assisted proof at $30$ values of $\lambda$ up to $640{,}000$ provides rigorous verification across nearly $4$ orders of magnitude. The resolvent M1$''$ framework and the Leading-Mode Cancellation Lemma narrow the remaining challenge to a specific analytical problem reducible to Fourier analysis and the Prime Number Theorem.
 
 \subsection{Nyman--Beurling--Baez-Duarte}
 
@@ -313,7 +313,7 @@ In each case, an external parameter (temperature, cutoff, scale) provides regula
 
   \item The \textbf{Shift Parity Lemma}, a purely algebraic result about trigonometric shift matrices, establishing universal even preference of individual primes.
 
-  \item A \textbf{computer-assisted proof} of even dominance at $29$ values ($\lambda = 100$ to $320{,}000$), providing rigorous verification of Connes' spectral hypothesis across $3.5$ orders of magnitude.
+  \item A \textbf{computer-assisted proof} of even dominance at $30$ values ($\lambda = 100$ to $640{,}000$), providing rigorous verification of Connes' spectral hypothesis across nearly $4$ orders of magnitude.
 
   \item A \textbf{precise identification} of the remaining challenge: the cumulative step (A6/E6), reducing a century-old problem to a specific algebraic question about eigenvalue inequalities for sums of shift matrices.
 
@@ -328,7 +328,7 @@ We have not proved the Riemann Hypothesis. The cumulative step remains open, and
 
 The reduction chain A1--A8 (\Cref{sec:architecture}) shows that exactly one step (A6) remains open. This is a well-defined algebraic problem: given that $\lambda_1(D_p) < 0$ for each prime $p$ (the Shift Parity Lemma), show that $\lambda_1(\sum_{p \leq \lambda} D_p) < 0$ for all sufficiently large $\lambda$.
 
-The numerical evidence is overwhelming (the gap deepens as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$ across $3.5$ orders of magnitude), and the structural analysis constrains the problem tightly. Four concrete approaches (A--D) have been identified. The problem is open, but it is \emph{localized}: we know exactly what remains to be shown, and we know exactly why it is hard (eigenvalue inequalities are not additive).
+The numerical evidence is overwhelming (the gap deepens as $|\mathrm{cert\_gap}| \sim c\sqrt{\lambda}$ across nearly $4$ orders of magnitude), and the structural analysis constrains the problem tightly. Four concrete approaches (A--D) have been identified. The problem is open, but it is \emph{localized}: we know exactly what remains to be shown, and we know exactly why it is hard (eigenvalue inequalities are not additive).
 
 \subsection{Philosophical Reflection}
 
@@ -351,7 +351,7 @@ Thermodynamic formalism for $\zeta$ & established & I \\
 4 excluded paths (K1--K4) & proven & I \\
 Localization: all of RH $\equiv$ Step S5 & proven & I \\
 Shift Parity Lemma & proven (analytic) & II \\
-Even dominance ($29$ values, $\lambda \leq 320{,}000$) & proven (CAP) & II \\
+Even dominance ($30$ values, $\lambda \leq 640{,}000$) & proven (CAP) & II \\
 Frontier-prime mechanism & proven & II \\
 Hellmann--Feynman: prime-counting drives gap & proven & II \\
 Leading-Mode Cancellation ($c = 2+\sqrt{2}$) & proven & II \\
