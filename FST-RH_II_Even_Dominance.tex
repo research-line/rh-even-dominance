@@ -1401,35 +1401,59 @@ For fixed $N_0$, the contribution of modes $j \geq 3$ to the resolvent-damped en
 \end{lemma}
 
 \begin{proof}
-By \Cref{lem:leading-cancel}(b), each $\Delta_j(u) = O(u)$ for $j \geq 2$. The mode-$j$ energy contribution scales as $|B_j|^2/g_j = O(\sqrt{\lambda})$ with prefactors that decay in $j$ (numerically: $|B_{0j}|^2/g_j^- \sim j^{-1.86}$ for $j \geq 3$). Since $N_0$ is fixed and only finitely many modes are summed, the total is $O(\sqrt{\lambda})$ with a constant that inherits the $O(u)$ suppression from the overlap differences. By the same PNT argument as in \Cref{cor:M1-closure} below, this gives $o(D(\lambda))$.
+By \Cref{lem:leading-cancel}(b), each $\Delta_j(u) = O(u)$ for $j \geq 2$. The mode-$j$ energy contribution scales as $|B_j|^2/g_j = O(\sqrt{\lambda})$ with prefactors that decay in $j$ (numerically: $|B_{0j}|^2/g_j^- \sim j^{-1.86}$ for $j \geq 3$). Since $N_0$ is fixed and only finitely many modes are summed, the total is $O(\sqrt{\lambda})$ with a constant that inherits the $O(u)$ suppression from the overlap differences. By the PNT (partial summation), this gives $o(D(\lambda))$.
 \end{proof}
 
-\begin{corollary}[M1$''$ closure]
-\label{cor:M1-closure}
-Assuming \Cref{lem:leading-cancel} and \Cref{lem:resolvent-truncation}, the coupling differential satisfies
+\begin{remark}[The gap asymmetry obstruction]
+\label{rem:gap-asymmetry}
+The energy difference $E_{\sin} - E_{\cos}$ involves terms $|B_j^-|^2/g_j^- - |B_j^+|^2/g_j^+$ where the gaps $g_j^-$ and $g_j^+$ are \emph{structurally different}. Numerically:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{r|rr|rr|r}
+$\lambda$ & $g_{\cos,0}$ & $g_{\sin,1}$ & $g_{\cos,2}$ & $g_{\sin,2}$ & $\delta g_1/D$ \\\hline
+100  & $35.4$ & $5.2$  & $12.5$ & $5.1$  & $5.59$ \\
+500  & $88.1$ & $22.3$ & $41.1$ & $16.1$ & $4.94$ \\
+2000 & $183.0$ & $59.6$ & $98.8$ & $38.4$ & $4.60$
+\end{tabular}
+\end{center}
+
+\noindent The gap ratio $g_{\sin}/g_{\cos}$ is $\approx 0.15$--$0.39$ (far from unity), and $\delta g/D \approx 5$ (not small). This means the naive decomposition $|B^-|^2/g^- - |B^+|^2/g^+ \approx (B^- + B^+)(B^- - B^+)/g$ incurs a correction term $O(|B|^2 \delta g / g^2)$ that is $O(\sqrt{\lambda})$---the \emph{same order} as $D(\lambda)$.
+
+Consequently, the Leading-Mode Cancellation (\Cref{lem:leading-cancel}) controls the \emph{numerator} difference $B^- - B^+$ but does \emph{not} automatically control the energy difference when the denominators differ. This gap asymmetry is the precise remaining obstruction. We formulate the correct decomposition in \Cref{prop:direct-gap} below.
+\end{remark}
+
+\begin{proposition}[Direct gap bound]
+\label{prop:direct-gap}
+The energy difference decomposes without the equal-gap approximation as
+\begin{equation}
+\label{eq:direct-decomp}
+  \frac{|B_j^-|^2}{g_j^-} - \frac{|B_j^+|^2}{g_j^+}
+  = \frac{|B_j^-|^2 - |B_j^+|^2}{g_j^-} + |B_j^+|^2\!\left(\frac{1}{g_j^-} - \frac{1}{g_j^+}\right).
+\end{equation}
+The first term is controlled by the Leading-Mode Cancellation Lemma (the numerator difference). The second term has definite sign: since $g_j^- < g_j^+$ (the even sector has larger gaps, because $|W_{11}^+|$ is more negative), we have $1/g_j^- > 1/g_j^+$, making the second term \emph{positive}. This positive correction \emph{increases} $E_{\sin} - E_{\cos}$, working \emph{against} even dominance.
+
+The certified gap nonetheless remains negative because the diagonal advantage $D(\lambda) = |W_{11}^+ - W_{00}^-|$ is large enough to absorb both terms. Specifically, the ratio
 \[
-  \frac{E_{\sin}(\lambda) - E_{\cos}(\lambda)}{D(\lambda)} = O(1/L) \;\xrightarrow{L \to \infty}\; 0.
+  \rho(\lambda) \coloneqq \frac{E_{\sin}(\lambda) - E_{\cos}(\lambda)}{D(\lambda)}
 \]
-\end{corollary}
+satisfies $\rho(\lambda) < 1$ for all tested $\lambda$ (from $\rho \approx 0.63$ at $\lambda = 100$ to $\rho \approx 0.28$ at $\lambda = 3000$), with monotone decrease. However, proving $\rho(\lambda) < 1 - \varepsilon$ for all $\lambda \geq \lambda_0$ requires controlling the second term in~\eqref{eq:direct-decomp}, which involves the gap ratio $g_j^-/g_j^+$.
+\end{proposition}
 
 \begin{proof}
-By \Cref{lem:leading-cancel}, the effective overlap difference for each prime $p$ is $O(u_p) = O(\log p/L)$. The off-diagonal matrix elements are therefore
-\[
-  B_{0j}^{\sin} - B_{1j'}^{\cos} = \sum_{p \leq \lambda} a_p\,\Delta_j(u_p) = O\!\Bigl(\frac{1}{L}\sum_{p \leq \lambda}\frac{(\log p)^2}{\sqrt{p}}\Bigr).
-\]
-By the PNT with partial summation, $\sum_{p \leq \lambda}(\log p)^2/\sqrt{p} = O(\sqrt{\lambda}\log\lambda)$, so each $B$-difference is $O(\sqrt{\lambda})$ (same order as the $B$-terms themselves). However, the \emph{energy difference} involves the squared terms:
-\[
-  \frac{|B_{\sin}|^2}{g_{\sin}} - \frac{|B_{\cos}|^2}{g_{\cos}} = \frac{(B_{\sin}+B_{\cos})(B_{\sin}-B_{\cos})}{g} + O\!\Bigl(\frac{|B|^2\,\delta g}{g^2}\Bigr),
-\]
-where $B_{\sin} + B_{\cos} = O(\sqrt{\lambda})$, $B_{\sin} - B_{\cos} = O(\sqrt{\lambda}/L)$, and $g = O(\sqrt{\lambda})$. The leading term is therefore $O(\sqrt{\lambda}/L)$. Summing over the finitely many active modes ($j \leq N_0$) and using the resolvent truncation for $j > N_0$:
-\[
-  E_{\sin} - E_{\cos} = O(\sqrt{\lambda}/L) + o(D) = O(\sqrt{\lambda}/L).
-\]
-Since $D(\lambda) = O(\sqrt{\lambda}/L)$ with a positive leading constant (\Cref{cor:diagonal-parity}), the ratio is $O(1)$. The sharper bound $O(1/L)$ follows from the quadratic structure: in the dominant terms, $B_{\sin}^2 - B_{\cos}^2 = (B_{\sin}-B_{\cos})(B_{\sin}+B_{\cos})$ gains an additional $1/L$ from $B_{\sin}-B_{\cos} = O(\sqrt{\lambda}/L)$, while the common factor $B_{\sin}+B_{\cos} = O(\sqrt{\lambda})$ and $g = O(\sqrt{\lambda})$ cancel. This yields each energy-difference term as $O(\sqrt{\lambda}/L^2)$, hence $E_{\sin}-E_{\cos} = O(\sqrt{\lambda}/L^2)$, and
-\[
-  \frac{E_{\sin}-E_{\cos}}{D} = O(1/L) \to 0. \qedhere
-\]
+Equation~\eqref{eq:direct-decomp} is the algebraic identity $a/x - b/y = (a-b)/x + b(1/x - 1/y)$. The sign of $1/g_j^- - 1/g_j^+$ follows from $g_j^- < g_j^+$, which holds because $W_{jj}^- - W_{00}^- < W_{jj}^+ - W_{11}^+$ (the even leading diagonal $W_{11}^+$ is more negative than the odd leading diagonal $W_{00}^-$, while the higher diagonals $W_{jj}$ are approximately parity-neutral).
 \end{proof}
+
+\begin{remark}[Status of M1]
+\label{rem:M1-status}
+The certified gap $\mathrm{cert\_gap}(\lambda) < 0$ is \emph{rigorously verified} for $30$ values of $\lambda$ up to $640{,}000$. The analytical framework establishes:
+\begin{itemize}
+  \item The numerator difference $|B_j^-|^2 - |B_j^+|^2$ is controlled by the Leading-Mode Cancellation (\Cref{lem:leading-cancel}).
+  \item The gap ratio $g_j^-/g_j^+$ is bounded away from zero (both gaps grow as $O(\sqrt{\lambda})$).
+  \item The ratio $\rho(\lambda)$ decreases monotonically from $0.63$ to $0.28$ over $\lambda = 100$ to $3000$.
+\end{itemize}
+The remaining analytical step is to prove that $\rho(\lambda) < 1$ for all $\lambda \geq \lambda_0$. This requires a quantitative bound on the second term in~\eqref{eq:direct-decomp} that accounts for the gap asymmetry. The numerical evidence strongly suggests $\rho(\lambda) \to 0$, but a rigorous proof of this convergence remains open.
+\end{remark}
 
 
 \bibliographystyle{plain}
