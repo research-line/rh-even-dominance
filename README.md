@@ -1,5 +1,7 @@
 # FST-RH: A Proof of the Riemann Hypothesis via Even Dominance of the Weil Quadratic Form
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19035641.svg)](https://doi.org/10.5281/zenodo.19035641)
+
 A three-part research series establishing the Riemann Hypothesis via Connes'
 spectral program (arXiv:2602.04022). The proof combines computer-assisted
 certificates (interval arithmetic), the Leading-Mode Cancellation Lemma
