@@ -9,6 +9,8 @@
 \geometry{margin=2.5cm}
 \usepackage{enumitem}
 \usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{needspace}
 \usepackage[capitalise,noabbrev]{cleveref}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -42,6 +44,7 @@ Diese abschließende Arbeit in einer dreiteiligen Serie führt die Ergebnisse de
 \noindent\textbf{MSC 2020:} 11M26, 11M36, 47A75, 65G20\\
 \textbf{Schlagworte:} Riemannsche Vermutung, Li-Koeffizienten, gerade Dominanz, Euler-Maclaurin, Beweisarchitektur, offene Probleme
 
+\newpage
 \tableofcontents
 
 
@@ -188,8 +191,9 @@ Der kumulative Schritt war die zentrale Herausforderung: zu zeigen, dass die Sum
 Vier Kandidatenstrategien für den kumulativen Schritt wurden während der Forschung identifiziert:
 
 \begin{center}
-\small
+\footnotesize
 \renewcommand{\arraystretch}{1.25}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{c|p{2.5cm}|p{2.8cm}|p{2.8cm}|l}
  & \textbf{Ziel} & \textbf{Stärke} & \textbf{Engpass} & \textbf{Entscheidung} \\\hline
 \textbf{A} & Monotone EW-Ordnung via totale Positivität & Wenn gültig: A6 automatisch & Primzahl-Shifts sind nicht $\mathrm{PF}_\infty$ & Nicht nötig \\[4pt]
@@ -197,7 +201,7 @@ Vier Kandidatenstrategien für den kumulativen Schritt wurden während der Forsc
 \textbf{C} & Stabilität des Grundzustands als prolate Störung & Connes' natürlicher Weg & Quantitative Störungskontrolle & \textbf{Backup} \\[4pt]
 \textbf{D} & Globale Schranke via $\mathrm{Tr}(M^k)$ & Spuren sind additiv & Momente $\to$ Eigenwerte nicht gratis & \textbf{Backup} \\[4pt]\hline
 \textbf{M1$''$} & Resolvent-gedämpfte Energie + PNT-Transfer & Nutzt direkt Shift Parity + 33 CAP & Braucht Lemma~B + C & \textbf{Gewählt}
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \noindent\textbf{Warum M1$''$ + PNT + CAP gewählt wurde.} Routen~A und~B wären ``Jackpot''-Lösungen, erfordern aber neue strukturelle Eigenschaften der Weil-Form. Route~C (prolate Störung) ist die nächste Alternative; M1$''$ ist strukturell ähnlich. Route~D (Spur-Momente) bietet ein natürliches Backup für die Höhere-Moden-Schranken. Der gewählte Weg kombiniert die stärksten verfügbaren Werkzeuge: analytische Asymptotik (M1$''$), rigorose Numerik (33~CAP-Zertifikate) und Fehlerkontrolle (Lemmata~B und~C). Routen~C und~D bleiben als unabhängige Verifikationspfade verfügbar.
@@ -257,13 +261,15 @@ E7 & Connes' Theorem~6.1 $\Rightarrow$ RH & bewiesen & \cite{Connes2025}
 
 % --- Tabelle: Systematisch geprüfte Alternativen ---
 
+\needspace{8cm}
 \subsection{Systematisch geprüfte Alternativen}
 
 Während der Entwicklung des Beweises wurden elf alternative Strategien (BI-1 bis BI-11) systematisch exploriert. Diese erschöpfende Suche ist selbst ein Meta-Resultat: \emph{der Lösungsraum ist kartiert, und der gewählte Weg ist der einzig konsistente.}
 
 \begin{center}
-\small
+\footnotesize
 \renewcommand{\arraystretch}{1.2}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{l|p{4.5cm}|l|l}
 \textbf{Ansatz} & \textbf{Kernidee} & \textbf{Ergebnis} & \textbf{Status} \\\hline
 BI-1: $\det_2$ & Raum erweitern (Hilbert--Schmidt) & Kein Positivitätsersatz & Widerlegt \\
@@ -276,18 +282,20 @@ BI-7: Pöschl--Teller & Gamma-Analogie zu $\xi$ & Keine Stabilität & Negativ \\
 BI-9: Soliton-Modelle & Topologische Stabilität & Coulomb-Gas instabil & Widerlegt \\
 \textbf{BI-10: Bausteine} & \textbf{No-Coordination, Shift-Struktur} & \textbf{Erfolgreich wiederverwendet} & \textbf{Integriert} \\
 \textbf{BI-11: Connes 2026} & \textbf{Even-Dominanz via $Q_W$} & \textbf{Durchbruch} & \textbf{Kernweg}
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 % --- Tabelle: Unabhängige Resultate ---
 
+\needspace{10cm}
 \subsection{Unabhängige Resultate}
 
 Mehrere Ergebnisse dieses Programms sind unabhängig vom Hauptbeweis von Interesse:
 
 \begin{center}
-\small
+\footnotesize
 \renewcommand{\arraystretch}{1.2}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{p{4.2cm}|p{3.2cm}|p{4.2cm}|l}
 \textbf{Resultat} & \textbf{Kontext} & \textbf{Bedeutung} & \textbf{Status} \\\hline
 \multicolumn{4}{l}{\emph{Positive Resultate (neue Mathematik)}} \\[2pt]
@@ -309,7 +317,7 @@ Coulomb-Gas-Instabilität & Statistische Mechanik & Reine Positionsmodelle insta
 \multicolumn{4}{l}{\emph{Strukturelle Erkenntnisse (Meta-Resultate)}} \\[2pt]
 Pattern A (invertierte Hesse-Matrix) & YM/TU/RH-Vergleich & $\partial^2\lambda_n/\partial\delta^2 < 0$: RH ist ein Maximum & Bestätigt \\
 Interdisziplinärer Katalog & Regularisierung & $11$ Felder teilen die Spurklassen-Obstruktion & Dokumentiert
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \noindent Diese $17$ Resultate zeigen, dass das Programm substanzielle Beiträge unabhängig vom Hauptbeweis hervorgebracht hat. Insbesondere sind das Shift-Parity-Lemma, die Obstruktionsanalyse (K1--K4) und die Mellin-Abkling-Barriere unabhängig publizierbar. Die negativen Resultate sind wohl die wertvollsten: sie schützen zukünftige Forscher davor, Sackgassen-Strategien zu wiederholen.

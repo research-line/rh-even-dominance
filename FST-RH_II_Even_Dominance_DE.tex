@@ -42,6 +42,7 @@ Dies ist die zweite Arbeit in einer dreiteiligen Serie (Teil~I: Grundlagen und H
 \noindent\textbf{MSC 2020:} 11M26, 11M36, 47A75, 65G20\\
 \textbf{Schlagworte:} Riemannsche Vermutung, quadratische Weil-Form, gerade Dominanz, Shift-Parity-Lemma, computergestützter Beweis
 
+\newpage
 \tableofcontents
 
 % =============================================================================
@@ -69,11 +70,11 @@ Eine aktuelle Übersicht von Connes \cite{Connes2025} reduziert die Riemannsche 
 \subsection{Connes' Reduktion}
 
 Connes konstruiert einen selbstadjungierten Operator $A_\lambda$ auf $L^2([-\log\lambda,\,\log\lambda])$ aus der expliziten Formel von Weil. In additiven Koordinaten ($u = \log x$) lautet die quadratische Form
-\[
-  \langle A_\lambda f \,|\, f \rangle = (\log 4\pi + \gamma)\|f\|^2
-  + \int_0^\infty \Big[\langle T_u f + T_{-u} f,\, f \rangle - 2e^{-u/2}\|f\|^2\Big]\,\frac{e^{u/2}}{2\sinh(u)}\,du
+\begin{multline*}
+  \langle A_\lambda f \,|\, f \rangle = (\log 4\pi + \gamma)\|f\|^2 \\
+  + \int_0^\infty \Big[\langle T_u f + T_{-u} f,\, f \rangle - 2e^{-u/2}\|f\|^2\Big]\,\frac{e^{u/2}}{2\sinh(u)}\,du \\
   + \sum_p \sum_{m=1}^\infty \frac{\log p}{p^{m/2}} \langle T_{m\log p} f + T_{-m\log p} f,\, f \rangle,
-\]
+\end{multline*}
 wobei $T_u$ den Shift-Operator bezeichnet, $\gamma$ die Euler-Mascheroni-Konstante ist und der archimedische Kern $e^{u/2}/(2\sinh u)$ aus der Variablen-Substitution $x = e^u$ resultiert, angewendet auf Connes' Gleichung~(10) in \cite{Connes2025}, mit $x^{1/2}/(x-x^{-1})\,d^*\!x = e^{u/2}/(2\sinh u)\,du$. Der Operator $A_\lambda$ ist nach unten beschränkt mit kompaktem Resolventen (daher diskretes Spektrum).
 
 \begin{theorem}[Connes, Theorem 6.1 in \cite{Connes2025}]

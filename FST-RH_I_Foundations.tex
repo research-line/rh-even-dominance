@@ -27,7 +27,7 @@
 \newcommand{\muG}{\mu_\sigma}
 \newcommand{\PP}{\mathcal{P}}
 
-\title{The FST-RH Framework:\\
+\title{The Riemann Hypothesis:\\
 Foundations, Obstructions, and Reorientation}
 \author{Lukas Geiger\\
 \small Bernau, Germany\\
@@ -35,16 +35,21 @@ Foundations, Obstructions, and Reorientation}
 \date{\today}
 
 \begin{document}
+\overfullrule=0pt
 \maketitle
 
 \begin{abstract}
-This paper, the first in a three-part series on the Riemann Hypothesis, establishes the mathematical landscape and documents the systematic exploration --- and ultimately the failure --- of a gauge-theoretic approach. In the first part, we develop the analytical framework: the Riemann Hypothesis as a stability problem, the Li criterion as the central tool, and the Bombieri--Lagarias decomposition of the Li coefficients into archimedean and finite-part contributions. Starting from a thermodynamic formalism (Prime Hub Graphs and Ruelle transfer operators), we prove several unconditional structural results: the archimedean--finite decomposition, the archimedean dominance paradox, OS reflection positivity, the arithmetic uncertainty relation, and the spectral census of the arithmetic kernel. In the second part, we identify four critical obstructions (K1--K4) that individually and collectively doom the original proof strategy: the Gibbs normalization gap, the sign change of the target functional, the wrong monotonicity direction, and the trace-class obstruction. We localize the difficulty precisely through a nine-step logical chain, showing that the \emph{entire} content of RH concentrates in a single step (S5: the unconditional positivity of the Li coefficients). We formulate five concrete open problems and identify the reorientation toward Connes' spectral program as the path forward. Part~II develops this new direction via the Shift Parity Lemma and computer-assisted proofs of even dominance; Part~III draws the final conclusions.
+This paper, the first in a three-part series on the Riemann Hypothesis, establishes the mathematical landscape and documents the systematic exploration---and ultimately the failure---of a gauge-theoretic approach. In the first part, we develop the analytical framework: the Riemann Hypothesis as a stability problem, the Li criterion as the central tool, and the Bombieri--Lagarias decomposition of the Li coefficients into archimedean and finite-part contributions. Starting from a thermodynamic formalism (Prime Hub Graphs and Ruelle transfer operators), we prove several unconditional structural results: the archimedean--finite decomposition, the archimedean dominance paradox, OS reflection positivity, the arithmetic uncertainty relation, and the spectral census of the arithmetic kernel.
+
+In the second part, we identify four critical obstructions (K1--K4) that individually and collectively doom the original proof strategy: the Gibbs normalization gap, the sign change of the target functional, the wrong monotonicity direction, and the trace-class obstruction. We localize the difficulty precisely through a nine-step logical chain, showing that the \emph{entire} content of RH concentrates in a single step (S5: the unconditional positivity of the Li coefficients). We formulate five concrete open problems and identify the reorientation toward Connes' spectral program as the path forward. Part~II develops this new direction via the Shift Parity Lemma and computer-assisted proofs of even dominance; Part~III draws the final conclusions.
 \end{abstract}
 
 \noindent\textbf{MSC 2020:} 11M26, 11M36, 37C30, 47A75, 82B05\\
 \textbf{Keywords:} Riemann Hypothesis, Li coefficients, Ruelle transfer operator, archimedean dominance, gauge positivity, obstructions, spectral analysis
 
+\newpage
 \tableofcontents
+\newpage
 
 
 % =============================================================================
@@ -197,7 +202,8 @@ $n$ & $\lambda_n$ & $\lambda_n^{(\infty)}$ & $\lambda_n^{(\mathrm{fin})}$ & $c_n
 
 \begin{proposition}[Stability Decomposition]
 \label{prop:stability}
-The global curvature $\mathcal{M}(\sigma) = \partial_s^2\log\xi(s)$ decomposes as $\mathcal{M} = \mathcal{M}_{\mathrm{arith}} + \mathcal{M}_{\mathrm{arch}}$:
+The global curvature $\mathcal{M}(\sigma) = \partial_s^2\log\xi(s)$ decomposes as
+$\mathcal{M} = \mathcal{M}_{\mathrm{arith}} + \mathcal{M}_{\mathrm{arch}}$:
 \begin{enumerate}
   \item \textbf{Arithmetic instability:} $\mathcal{M}_{\mathrm{arith}}(1) = \sum_\rho \Re(1/\rho^2) < 0$.
   \item \textbf{Archimedean stability:} $\mathcal{M}_{\mathrm{arch}}(\sigma) > 0$ for $\sigma > 1/2$ (explicitly positive and convex).
@@ -268,11 +274,17 @@ By Bochner's theorem: $K(t,u) = \hat{\mu}(u-t)$ with $\mu = \sum_p w_p\,\delta_{
 
 \begin{heuristic}[Arithmetic Uncertainty Relation]
 \label{heur:uncertainty}
-For normalized $\psi \in \ell^2(\PP)$, define the prime-domain spread $\Delta_D$ via $\Delta_D^2 = \sum_p |a_p|^2(\log p - \overline{\log p})^2$ and the zero-domain spread $\Delta_t$ via the Fourier transform $\hat\psi(t) = \sum_p a_p e^{-it\log p}$. Then $\Delta_D \cdot \Delta_t \geq 1/2$.
+For normalized $\psi \in \ell^2(\PP)$, define the prime-domain spread $\Delta_D$ via
+\[
+\Delta_D^2 = \sum_p |a_p|^2(\log p - \overline{\log p})^2
+\]
+and the zero-domain spread $\Delta_t$ via the Fourier transform $\hat\psi(t) = \sum_p a_p e^{-it\log p}$. Then $\Delta_D \cdot \Delta_t \geq 1/2$.
 \end{heuristic}
 
 \begin{remark}
-This follows formally from the substitution $x_p = \log p$ and the Heisenberg--Kennard--Weyl inequality on $L^2(\mathbb{R})$. However, $\psi$ is supported on the discrete set $\{\log p : p \in \PP\}$, not on all of $\mathbb{R}$, so the reduction requires an embedding into $L^2(\mathbb{R})$ whose properties depend on the distribution of primes. We state this as a heuristic principle, not a theorem. The physical content is a consistency check: a zero off the critical line would require a ``localized phase conspiracy'' among finitely many primes, which the arithmetic incommensurability of $\{\log p\}$ makes implausible but does not rigorously exclude.
+This follows formally from the substitution $x_p = \log p$ and the Heisenberg--Kennard--Weyl inequality on $L^2(\mathbb{R})$. However, $\psi$ is supported on the discrete set $\{\log p : p \in \PP\}$, not on all of~$\mathbb{R}$, so the reduction requires an embedding into $L^2(\mathbb{R})$ whose properties depend on the distribution of primes. We state this as a heuristic principle, not a theorem.
+
+The physical content is a consistency check: a zero off the critical line would require a ``localized phase conspiracy'' among finitely many primes, which the arithmetic incommensurability of $\{\log p\}$ makes implausible but does not rigorously exclude.
 \end{remark}
 
 \subsection{Strict Convexity and the Spectral Census}
@@ -383,7 +395,7 @@ The numerator sum $S(\sigma) = \sum_p (\log p)p^{-\sigma}f(p,\sigma)$ converges 
 \end{proof}
 
 \begin{remark}[Consequence]
-The excess free energy $I_n$ and the Li coefficient $\lambda_n$ are structurally distinct objects (\Cref{prop:non-ident}). Even $I_n \geq 0$ (which holds unconditionally as a KL divergence) does not imply $\lambda_n \geq 0$. This is the ``convexity trap'': by the Bregman inequality, $I_n \geq 0$ is a universal identity for any strictly convex generating function, independent of $\mathrm{sign}(\lambda_n)$.
+The excess free energy $I_n$ and the Li coefficient $\lambda_n$ are structurally distinct objects (\Cref{prop:non-ident}). Even $I_n \geq 0$ (which holds unconditionally as a KL divergence) does not imply $\lambda_n \geq 0$. This is the ``convexity trap'': by the Bregman inequality, $I_n \geq 0$ is a universal identity for any strictly convex generating function, independent of~$\mathrm{sign}(\lambda_n)$.
 \end{remark}
 
 
@@ -438,7 +450,7 @@ This reverses the logic of the monotonicity argument: instead of showing $\lambd
 \subsection{Path D2: Stieltjes Realization}
 
 \begin{proposition}[K4a: Complete Monotonicity Fails]
-The sequence $c_n = \lambda_n/n$ is \emph{strictly increasing}: $c_1 \approx 0.023$, $c_{13} \approx 0.294$, with $c_n \sim \frac{1}{2}\log n$ asymptotically. This violates complete monotonicity at $k = 1$ ($\Delta c_n > 0$, so $(-1)^1\Delta c_n < 0$). The Stieltjes realization approach with a measure on $[0,1]$ is ruled out.
+The sequence $c_n = \lambda_n/n$ is \emph{strictly increasing}: $c_1 \approx 0.023$, $c_{13} \approx 0.294$, with $c_n \sim \frac{1}{2}\log n$ asymptotically. This violates complete monotonicity at $k = 1$ ($\Delta c_n > 0$, so $(-1)^1\Delta c_n < 0$). The Stieltjes realization approach with a measure on~$[0,1]$ is ruled out.
 \end{proposition}
 
 Under RH, the spectral measure lives on the unit circle $|w_\rho| = 1$, not $[0,1]$. The positivity of $c_n$ is an essentially number-theoretic property.
@@ -461,7 +473,7 @@ For the Selberg zeta function, the analogous construction works because geodesic
 \label{sec:routes}
 % =============================================================================
 
-The axiom system A0--A9 admits two logical routes to RH:
+The axiom system (defined in Part~II) admits two logical routes to RH:
 
 \begin{description}[font=\bfseries,leftmargin=2em]
   \item[Route 1 (A7 + A8$'$):] A7 (OS reflection positivity) is \textbf{proven}. A8$'$ (nuclear Fredholm determinant for $\xi$) remains \textbf{open} and faces the trace-class obstruction.
@@ -492,7 +504,7 @@ S9 & Gauge equivalence (tautological) & proven & Section~\ref{sec:gauge} \\
 \end{tabular}
 \end{center}
 
-\noindent\textbf{Conclusion:} The \emph{entire} content of the Riemann Hypothesis concentrates in Step S5. Everything before it is unconditional; everything after it is either equivalent or a consequence. The FST-RH program has not reduced S5 to a simpler statement.
+\noindent\textbf{Conclusion:} The \emph{entire} content of the Riemann Hypothesis concentrates in Step S5. Everything before it is unconditional; everything after it is either equivalent or a consequence. The present program has not reduced S5 to a simpler statement.
 
 
 % =============================================================================
@@ -538,7 +550,7 @@ If the minimum eigenvalue of $A_\lambda$ is simple with even eigenfunction, then
 
 Connes' Section~6.6 identifies the verification of this \emph{even dominance} property as the remaining open step. Crucially, Connes' Hurwitz argument requires even dominance only along a sequence $\lambda_n \to \infty$, not for all $\lambda$.
 
-This is where the thermodynamic insight pays off in an unexpected way: the decomposition analysis from the landscape sections (the prime-sum functionals, the trigonometric structure of shift operators) becomes the key to understanding \emph{why} even dominance holds. Part~II develops this completely, establishing the Shift Parity Lemma, the frontier-prime mechanism, and computer-assisted proofs of even dominance for $30$ values of $\lambda$ up to $640{,}000$.
+This is where the thermodynamic insight pays off in an unexpected way: the decomposition analysis from the landscape sections (the prime-sum functionals, the trigonometric structure of shift operators) becomes the key to understanding \emph{why} even dominance holds. Part~II develops this completely, establishing the Shift Parity Lemma, the frontier-prime mechanism, and computer-assisted proofs of even dominance for $33$ values of $\lambda$ up to $1{,}300{,}000$.
 
 \begin{remark}[From despair to hope]
 The gauge-theoretic approach failed because it tried to prove a \emph{global} statement ($\lambda_n \geq 0$ for all $n$) via a \emph{local} tool (the Gibbs measure near $\sigma = 1$). The Connes approach succeeds where the gauge approach fails because it works directly in the spectral domain of $A_\lambda$, where the even-odd decomposition provides a natural structure. The Shift Parity Lemma (Part~II) shows that this structure is fundamentally algebraic, not analytic.
@@ -563,6 +575,11 @@ However, the failure is productive:
 Part~II takes up the new thread: the Shift Parity Lemma, the computer-assisted proof of even dominance, and the identification of the cumulative step as the remaining challenge. Part~III draws the final conclusions on what has been proven, what has been excluded, and what remains open.
 
 
+\section*{AI Disclosure}
+
+This manuscript was developed in extensive collaboration with AI language models (Claude, Anthropic). AI contributed to conceptual exploration, analytical work, literature review, writing, and critical review. The author, Lukas Geiger, conceived the research direction, provided domain expertise, and exercised final editorial authority. The author assumes full and sole scholarly responsibility for all content, including any errors.
+
+
 \begin{thebibliography}{99}
 
 \bibitem{Li1997}
@@ -581,16 +598,16 @@ J.~B.~Keiper, \emph{Power series expansions of Riemann's $\xi$ function}, Math.~
 A.~Connes, \emph{Trace formula in noncommutative geometry and the zeros of the Riemann zeta function}, Selecta Math.~\textbf{5} (1999), 29--106.
 
 \bibitem{Connes2025}
-A.~Connes, \emph{Prolate and the Riemann zeta function}, arXiv:2602.04022v1, 2025.
+A.~Connes, \emph{Prolate and the Riemann zeta function}, arXiv:2602.04022v1, 2026.
 
 \bibitem{Deninger2002}
 C.~Deninger, \emph{On the nature of the ``explicit formulas'' in analytic number theory}, Banach Center Publ.~\textbf{57} (2002), 97--118.
 
 \bibitem{Geiger2026partII}
-L.~Geiger, \emph{Even Dominance of the Weil Quadratic Form: Spectral Analysis, Computer-Assisted Proof, and the Resolvent Gap Theorem}, 2026.
+L.~Geiger, \emph{The Riemann Hypothesis: Even Dominance of the Weil Quadratic Form}, 2026.
 
 \bibitem{Geiger2026partIII}
-L.~Geiger, \emph{The FST-RH Framework: Conclusio}, 2026.
+L.~Geiger, \emph{The Riemann Hypothesis: Conclusio}, 2026.
 
 \end{thebibliography}
 
