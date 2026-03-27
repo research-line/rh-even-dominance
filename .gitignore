@@ -30,6 +30,13 @@ removed_sections/
 # Kombi-PDFs (generated from EN+DE merge, not source)
 *_kombi.pdf
 
+# Internal temp files
+_zenodo_draft_id.txt
+SCIPOST.txt
+
+# Translation helper (internal)
+scripts/_translate_rh2.py
+
 # Server logs (not results)
 scripts/*.log
 
