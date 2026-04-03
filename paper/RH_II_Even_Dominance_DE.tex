@@ -79,7 +79,7 @@ Connes konstruiert einen selbstadjungierten Operator $A_\lambda$ auf $L^2([-\log
 \end{multline*}
 wobei $T_u$ den Shift-Operator bezeichnet, $\gamma$ die Euler-Mascheroni-Konstante ist und der archimedische Kern $e^{u/2}/(2\sinh u)$ aus dem Variablenwechsel $x = e^u$ resultiert, angewendet auf Connes' Gleichung~(10) in \cite{Connes2026}, mit $x^{1/2}/(x-x^{-1})\,d^*\!x = e^{u/2}/(2\sinh u)\,du$. Der Operator $A_\lambda$ ist nach unten beschr"ankt mit kompaktem Resolventen (daher diskretes Spektrum).
 
-\begin{theorem}[Connes, Theorem 6.1 in \cite{Connes2026}]
+\begin{theorem}[Connes, Theorem 6.1 in \cite{Connes2026}; bewiesen in \cite{ConnesvS2025}]
 Sei $L > 0$ und $D$ eine reelle Distribution auf $[0,L]$ mit gerader Erweiterung $\tilde{D}$ auf $[-L,L]$. Angenommen, die quadratische Form mit Kern $\tilde{D}(x-y)$ definiert einen nach unten beschränkten selbstadjungierten Operator auf $L^2([-L/2,\,L/2])$, dessen minimales Eigenwert einfach und isoliert ist, mit gerader Eigenfunktion $\eta$. Dann liegen alle Nullstellen von $\tilde{\eta}(z)$ auf der reellen Achse.
 \end{theorem}
 
@@ -1795,7 +1795,10 @@ Zwischen benachbarten Zertifikatswerten kann die zertifizierte Lücke nicht die 
     Wenn $\lambda$ eine Primzahl~$p$ überschreitet, wird das Rang-Eins-Update $W_p$ beiden Sektoren hinzugefügt.
     Nach dem Shift-Parity-Lemma (\Cref{thm:shift-parity}) gilt $\lambda_1(W_p^+) < \lambda_1(W_p^-)$ --- d.h., die gerade-Sektor-Störung ist streng negativer.
     Die intra-gerade spektrale Lücke $\lambda_2^+ - \lambda_1^+ \geq 8.69$ bei $\lambda = 100$ (\Cref{lem:simplicity}, zertifiziert durch Intervallarithmetik; monoton wachsend auf $\geq 731$ bei $\lambda = 320{,}000$) übersteigt die Operatornorm $\|W_p\|_{\mathrm{op}} < 0.46$ für $p \geq 100$ um einen Faktor $\geq 18$.
-    Durch eine Standard-Rayleigh-Quotient-Störungsschranke (s.\ z.B.\ \cite{Kato1995}, Satz~V.4.10) ist damit der führende Eigenvektor des geraden Blocks stabil unter dem Rang-Eins-Update, sodass der gerade Grundzustandseigenwert \emph{stärker} fällt als der ungerade.
+    Durch eine Standard-Rayleigh-Quotient-Störungsschranke (s.\ z.B.\ \cite{Kato1995}, Satz~V.4.10) ist damit der führende Eigenvektor des geraden Blocks stabil unter dem Rang-Eins-Update.
+    Entscheidend überträgt dies das Shift-Parity-Lemma vom \emph{isolierten} Primbeitrag~$W_p$ auf den \emph{vollen} Operator: Störungstheorie erster Ordnung liefert $\delta\lambda_1^+ \approx \langle \eta^+ | W_p^+ | \eta^+ \rangle$ und $\delta\lambda_1^- \approx \langle \eta^- | W_p^- | \eta^- \rangle$, wobei $\eta^\pm$ die Grundzustands-Eigenvektoren von $A_\lambda^\pm$ sind (nicht von~$W_p^\pm$).
+    Die OP2-Lücke ($\geq 8.69$) stellt sicher, dass die Korrektur zweiter Ordnung durch $\|W_p\|_{\mathrm{op}}^2 / \mathrm{gap}_{\mathrm{intra}} < 0.46^2/8.69 < 0.025$ beschränkt ist --- vernachlässigbar.
+    Da die stabilen Eigenvektoren $\eta^\pm$ vom führenden Fourier-Mode dominiert werden (Überlapp $> 0.99$ bei $\lambda = 100$, wachsend für größere~$\lambda$), erben die Rayleigh-Quotienten $\langle \eta^\pm | W_p^\pm | \eta^\pm \rangle$ die gerade-Präferenz des Shift-Parity-Lemmas: $\delta\lambda_1^+ < \delta\lambda_1^-$.
     Jede neue Primzahl \emph{vertieft} daher die gerade-ungerade-Lücke.
 
   \item \textbf{$L$-Variation (Hellmann--Feynman).}

@@ -78,7 +78,7 @@ Connes constructs a self-adjoint operator $A_\lambda$ on $L^2([-\log\lambda,\,\l
 \end{multline*}
 where $T_u$ denotes the shift operator, $\gamma$ is the Euler--Mascheroni constant, and the archimedean kernel $e^{u/2}/(2\sinh u)$ arises from the change of variables $x = e^u$ applied to Connes' equation~(10) in \cite{Connes2026}, with $x^{1/2}/(x-x^{-1})\,d^*\!x = e^{u/2}/(2\sinh u)\,du$. The operator $A_\lambda$ is lower-bounded with compact resolvent (hence discrete spectrum).
 
-\begin{theorem}[Connes, Theorem 6.1 in \cite{Connes2026}]
+\begin{theorem}[Connes, Theorem 6.1 in \cite{Connes2026}; proved in \cite{ConnesvS2025}]
 Let $L > 0$ and $D$ be a real distribution on $[0,L]$ with even extension $\tilde{D}$ on $[-L,L]$. Assume the quadratic form with kernel $\tilde{D}(x-y)$ defines a lower-bounded self-adjoint operator on $L^2([-L/2,\,L/2])$ whose minimum eigenvalue is simple, isolated, with even eigenfunction $\eta$. Then all zeros of $\tilde{\eta}(z)$ lie on the real line.
 \end{theorem}
 
@@ -1793,7 +1793,10 @@ Between adjacent certificate values, the certified gap cannot cross zero. The ar
     When $\lambda$ crosses a prime~$p$, the rank-one update $W_p$ is added to both sectors.
     By the Shift Parity Lemma (\Cref{thm:shift-parity}), $\lambda_1(W_p^+) < \lambda_1(W_p^-)$---i.e., the even-sector perturbation is strictly more negative.
     The intra-even spectral gap $\lambda_2^+ - \lambda_1^+ \geq 8.69$ at $\lambda = 100$ (\Cref{lem:simplicity}, certified by interval arithmetic; growing monotonically to $\geq 731$ at $\lambda = 320{,}000$) exceeds the operator norm $\|W_p\|_{\mathrm{op}} < 0.46$ for $p \geq 100$ by a factor $\geq 18$.
-    By a standard Rayleigh-quotient perturbation bound (see, e.g., \cite{Kato1995}, Theorem~V.4.10), this ensures that the leading eigenvector of the even block is stable under the rank-one update, so the even-sector ground-state eigenvalue drops \emph{more} than the odd-sector ground-state eigenvalue.
+    By a standard Rayleigh-quotient perturbation bound (see, e.g., \cite{Kato1995}, Theorem~V.4.10), this ensures that the leading eigenvector of the even block is stable under the rank-one update.
+    Crucially, this transfers the Shift Parity Lemma from the \emph{isolated} prime matrix~$W_p$ to the \emph{full} operator: first-order perturbation theory gives $\delta\lambda_1^+ \approx \langle \eta^+ | W_p^+ | \eta^+ \rangle$ and $\delta\lambda_1^- \approx \langle \eta^- | W_p^- | \eta^- \rangle$, where $\eta^\pm$ are the ground-state eigenvectors of $A_\lambda^\pm$ (not of~$W_p^\pm$).
+    The OP2 gap ($\geq 8.69$) ensures the second-order correction is bounded by $\|W_p\|_{\mathrm{op}}^2 / \mathrm{gap}_{\mathrm{intra}} < 0.46^2/8.69 < 0.025$, which is negligible.
+    Since the stable eigenvectors $\eta^\pm$ are dominated by the leading Fourier mode (with overlap $> 0.99$ at $\lambda = 100$, increasing for larger~$\lambda$), the Rayleigh quotients $\langle \eta^\pm | W_p^\pm | \eta^\pm \rangle$ inherit the even-preference of the Shift Parity Lemma: $\delta\lambda_1^+ < \delta\lambda_1^-$.
     Hence each new prime \emph{deepens} the even--odd gap.
 
   \item \textbf{$L$-variation (Hellmann--Feynman).}

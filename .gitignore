@@ -27,8 +27,8 @@ _partners/
 CORE.txt
 removed_sections/
 
-# Kombi-PDFs (generated from EN+DE merge, not source)
-*_kombi.pdf
+# PDFs (rebuild from .tex; only source files tracked)
+*.pdf
 
 # Internal temp files
 _zenodo_draft_id.txt
@@ -40,8 +40,9 @@ scripts/_translate_rh2.py
 # Server logs (not results)
 scripts/*.log
 
-# Exploration scripts (historical, not needed)
+# Exploration scripts and intermediate results (historical, not needed)
 scripts/_exploration/
+scripts/_results/
 
 # Python
 __pycache__/
