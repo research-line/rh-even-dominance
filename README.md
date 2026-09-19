@@ -117,7 +117,7 @@ sequenceDiagram
     participant Vault as Certificate Vault (results/)
     participant Zenodo as Zenodo / DOI Archive
 
-    Reviewer->>CLI: Execute Certification Pipeline (&lambda; = 100 .. 1,300,000)
+    Reviewer->>CLI: Execute Certification Pipeline (λ = 100 .. 1,300,000)
     activate CLI
     CLI->>MP: Discretize Weil Kernel into Galerkin Blocks (E_even, E_odd)
     activate MP
@@ -129,9 +129,9 @@ sequenceDiagram
     Tail-->>CLI: Verified Upper/Lower Analytic Tail Margins
     deactivate Tail
 
-    CLI->>Shift: Evaluate Shift Parity Lemma & Spectral Gap &Delta;(&lambda;) = &lambda;_1^- - &lambda;_1^+
+    CLI->>Shift: Evaluate Shift Parity Lemma & Spectral Gap Δ(λ) = λ_1^- - λ_1^+
     activate Shift
-    Shift-->>CLI: Positive Gap Validated (&ge; 8.69 at &lambda;=100)
+    Shift-->>CLI: Positive Gap Validated (≥ 8.69 at λ=100)
     deactivate Shift
 
     CLI->>Vault: Serialize Immutable JSON Certificates (certificates_*.json)

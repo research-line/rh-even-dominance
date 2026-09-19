@@ -117,7 +117,7 @@ sequenceDiagram
     participant Tresor as Zertifikats-Tresor (results/)
     participant Zenodo as Zenodo / DOI Archiv
 
-    Gutachter->>CLI: Starte Zertifizierungspipeline (&lambda; = 100 .. 1.300.000)
+    Gutachter->>CLI: Starte Zertifizierungspipeline (λ = 100 .. 1.300.000)
     activate CLI
     CLI->>MP: Diskretisiere Weil-Kern in Galerkin-Blöcke (E_even, E_odd)
     activate MP
@@ -129,9 +129,9 @@ sequenceDiagram
     Rest-->>CLI: Verifizierte obere/untere analytische Fehlerschranken
     deactivate Rest
 
-    CLI->>Shift: Evaluiere Shift Parity Lemma & Spektrallücke &Delta;(&lambda;) = &lambda;_1^- - &lambda;_1^+
+    CLI->>Shift: Evaluiere Shift Parity Lemma & Spektrallücke Δ(λ) = λ_1^- - λ_1^+
     activate Shift
-    Shift-->>CLI: Positive Lücke validiert (&ge; 8,69 bei &lambda;=100)
+    Shift-->>CLI: Positive Lücke validiert (≥ 8,69 bei λ=100)
     deactivate Shift
 
     CLI->>Tresor: Serialisiere unveränderliche JSON-Zertifikate (certificates_*.json)
