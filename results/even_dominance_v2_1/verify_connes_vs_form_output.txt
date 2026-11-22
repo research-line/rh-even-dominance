@@ -1,0 +1,32 @@
+================================================================================
+Verify Connes-vS Operator Form: D_n and S_n, Cos/Sin Asymmetry
+================================================================================
+
+Hilbert space: L^2([0, L]), complex exponential basis U_n.
+Cos diag = D_n - S_n, Sin diag = D_n + S_n.
+Difference (Sin - Cos) = 2 S_n. NON-ZERO => spectral asymmetry.
+
+  lambda    n            D_n            S_n       Cos diag       Sin diag          2 S_n
+------------------------------------------------------------------------------------------
+     100    1         7.7345         2.2338         5.5007         9.9684         4.4676
+     100    2         5.2852         0.7005         4.5847         5.9856         1.4009
+     100    3         4.2276         0.3554         3.8723         4.5830         0.7107
+
+     300    1         9.4590         4.3127         5.1463        13.7717         8.6254
+     300    2         6.2370         1.3248         4.9121         7.5618         2.6497
+     300    3         4.8953         0.6498         4.2455         5.5451         1.2995
+
+    1000    1        11.8898         8.6345         3.2553        20.5243        17.2690
+    1000    2         7.7782         2.6888         5.0895        10.4670         5.3776
+    1000    3         5.8708         1.2835         4.5872         7.1543         2.5671
+
+================================================================================
+INTERPRETATION
+================================================================================
+If 2 S_n is non-zero, the cos- and sin-sector diagonals genuinely differ
+in the correct Connes-vS form -> Even Dominance can be a non-trivial
+question whose answer depends on the sign and magnitude of S_n.
+
+If S_n > 0 for the minimum-eigenvalue mode, then Cos diag < Sin diag at
+that mode, supporting Even Dominance asymptotically.
+

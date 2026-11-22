@@ -87,5 +87,9 @@ ignore = [
     "E401",  # multiple imports on one line
 ]
 
+[tool.ruff.lint.per-file-ignores]
+# Kept at the state cited by Even Dominance v2.1; lambda assignments left as published.
+"scripts/verify_diagonal_fast.py" = ["E731"]
+
 [tool.ruff.lint.isort]
 known-first-party = ["scripts"]
