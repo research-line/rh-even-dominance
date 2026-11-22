@@ -1,0 +1,47 @@
+================================================================================
+K0 Step 1 Fast Validation -- Even/Odd Spectrum Equivalence
+================================================================================
+
+Hypothesis: (W+)_{nn} = (W-)_{n-1,n-1} for n>=1 EXACTLY
+(by symmetric-shift auto-overlap formula sharing same frequency)
+
+If TRUE: spectrum(W+) = spectrum(W-) U {constant-mode eigenvalue}
+        Even Dominance cannot come from prime+archim+const Weil form alone.
+
+  lambda       L    (W+)_00    (W+)_11    (W-)_00    (W+)_22    (W-)_11    (W+)_33    (W-)_22
+----------------------------------------------------------------------------------------------------
+     100   4.605    23.2106    -8.6450    -8.6450    -0.2620    -0.2620    -1.5945    -1.5945
+     300   5.704    41.9170   -18.5718   -18.5718     2.8273     2.8273    -3.6075    -3.6075
+    1000   6.908    76.8371   -39.4953   -39.4953    10.4379    10.4379    -7.5105    -7.5105
+
+Differences (should be ~0 for the diagonal equivalence):
+  lambda      (W+)_11-(W-)_00      (W+)_22-(W-)_11      (W+)_33-(W-)_22
+---------------------------------------------------------------------------
+     100             0.00e+00             0.00e+00             0.00e+00
+     300             0.00e+00             0.00e+00             0.00e+00
+    1000             0.00e+00             0.00e+00             0.00e+00
+
+Off-diagonal test (single shift u=log(sqrt(lambda)), should be ~0):
+  lambda    <phi_1,(S+S-)phi_2>    <psi_0,(S+S-)psi_2>    <phi_0,(S+S-)phi_1>
+-------------------------------------------------------------------------------------
+     100            -2.1178e-01             3.1823e-01             4.4978e-01
+    1000            -2.0410e-01             3.1819e-01             4.4976e-01
+
+================================================================================
+INTERPRETATION
+================================================================================
+If columns (W+)_11 and (W-)_00, (W+)_22 and (W-)_11, etc. agree to
+machine precision, then spectrum(W+_prime) = spectrum(W-_prime) U
+{constant mode eigenvalue}. Even Dominance lambda_1^+ < lambda_1^-
+then requires either:
+  (a) Constant mode eigenvalue (W+)_00 < min of all other modes, OR
+  (b) Some symmetry-breaking mechanism beyond what's in the bare Weil
+      form (archimedean part not breaking cos/sin symmetry per our
+      analysis -- needs re-examination).
+
+Numerics show (W+)_00 >> 0 (positive, large), so (a) is FALSE.
+Thus Even Dominance cannot arise from the Weil form as we have
+formulated it. Possible resolution: Connes operator differs from this
+naive formulation in some subtle way (boundary terms, regularization,
+measure choice). Investigation needed.
+
